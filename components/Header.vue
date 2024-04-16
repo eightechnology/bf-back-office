@@ -146,7 +146,6 @@
                 </li>
             </ul>
         </div>
-        <slot />
     </div>
 </template>
 

@@ -1,5 +1,6 @@
 <template>
-    <nav id="sidebar" class="sidebar-wrapper sidebar-dark">
+    <div>
+        <nav id="sidebar" class="sidebar-wrapper sidebar-dark">
         <div class="sidebar-content" data-simplebar style="height: calc(100% - 60px);">
             <div class="sidebar-brand">
                 <a href="index.html">
@@ -13,12 +14,12 @@
 
             <ul class="sidebar-menu">
                 <li>
-                    <a :to="{ name: 'home' }"><i class="ti ti-home me-2"></i>Dashboard</a>
+                    <NuxtLink to="/"><i class="ti ti-home me-2"></i>Dashboard</NuxtLink>
                 </li>
                 <li>
-                    <a :to="{ name: 'events.add' }">
+                    <NuxtLink to="/about">
                         <i class="fa-solid fa-share"></i>Publier un événement
-                    </a>
+                    </NuxtLink>
                     
                 </li>
                 <li>
@@ -58,7 +59,7 @@
         </ul>
         <!-- Sidebar Footer -->
     </nav>
-    <slot />
+    </div>
 </template>
 <script>
 export default {

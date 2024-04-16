@@ -1,30 +1,21 @@
 <template>
-    <div>
-        <!doctype html>
-        <html lang="fr" dir="ltr">
+    <div class="page-wrapper toggled">
+        <Menu />
 
-        <head>
-            <!-- head  -->
-        </head>
+        <!-- Start Page Content -->
+        <main class="page-content bg-light">
+            <!-- Top Header -->
+            <Header />
 
-        <body>
-            <div class="page-wrapper toggled">
-                <Menu />
-
-                <!-- Start Page Content -->
-                <main class="page-content bg-light">
-                    <!-- Top Header -->
-                    <Header />
-
-                    <!-- Container  -->
+            <!-- Container  -->
+            <div class="container-fluid">
+                <div class="layout-specing">
                     <slot />
-
-                    <!-- Footer Start -->
-                    <Footer />
-                </main>
+                </div>
             </div>
-        </body>
 
-        </html>
+            <!-- Footer Start -->
+            <Footer />
+        </main>
     </div>
 </template>
