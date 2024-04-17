@@ -26,13 +26,6 @@
             </div>
 
             <ul class="list-unstyled mb-0">
-                <li class="list-inline-item mb-0">
-                    <a href="javascript:void(0)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-                        aria-controls="offcanvasRight">
-                        <div class="btn btn-icon btn-soft-light"><i class="ti ti-settings"></i></div>
-                    </a>
-                </li>
-
                 <li class="list-inline-item mb-0 ms-1">
                     <div class="dropdown dropdown-primary">
                         <button type="button" class="btn btn-icon btn-soft-light dropdown-toggle p-0"
