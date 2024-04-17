@@ -17,19 +17,18 @@ export default defineNuxtConfig({
       link: [
         { rel: 'shortcut icon', href: "/images/favicon.ico" },
         { rel: 'stylesheet', href: "/libs/simplebar/simplebar.min.css" },
-        { rel: 'stylesheet', href: "/css/bootstrap.min.css", type: "text/css" },
+        { rel: 'stylesheet', href: "/css/bootstrap.min.css", type: "text/css", class: 'theme-opt' },
         { rel: 'stylesheet', href: "/libs/@mdi/font/css/materialdesignicons.min.css", type: "text/css" },
         { rel: 'stylesheet', href: "/css/icons.min.css", type: "text/css" },
         { rel: 'stylesheet', href: "/libs/@iconscout/unicons/css/line.css", type: "text/css" },
         { rel: 'stylesheet', href: "/css/style.min.css", type: "text/css" },
       ],
       script: [
-        { src: '/libs/bootstrap/js/bootstrap.bundle.min.js' },
-        { src: '/libs/feather-icons/feather.min.js' },
-        { src: '/libs/simplebar/simplebar.min.js' },
-        { src: '/libs/apexcharts/apexcharts.min.js' },
-        { src: '/js/plugins.init.js' },
-        { src: '/js/app.js' },
+        { src: '/libs/bootstrap/js/bootstrap.bundle.min.js', body: true },
+        { src: '/libs/feather-icons/feather.min.js', body: true },
+        { src: '/libs/simplebar/simplebar.min.js', body: true },
+        { src: '/js/plugins.init.js', body: true },
+        { src: '/js/app.js', body: true },
       ]
     }
   }

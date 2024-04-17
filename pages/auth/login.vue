@@ -46,6 +46,6 @@ definePageMeta({
 })
 
 const onLogin = () => {
-    router.push({ path: "/"})
+    return location.href = "/"
 }
 </script>
