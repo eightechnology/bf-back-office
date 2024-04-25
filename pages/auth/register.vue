@@ -51,7 +51,7 @@
                                                 <polyline points="22,6 12,13 2,6"></polyline>
                                             </svg>
                                             <input name="email" id="email" type="email" class="form-control ps-5"
-                                                placeholder="Email " v-model="registerForm.email">
+                                                placeholder="Email " v-model="registerForm.email" :readonly="showConfirmCode">
                                         </div>
                                     </div>
                                 </div>
@@ -74,7 +74,7 @@
                                                 </template>
                                             </select>
                                             <input type="tel" class="form-control" id="phone" placeholder="Téléphone"
-                                                v-model="registerForm.phone">
+                                                v-model="registerForm.phone" :readonly="showConfirmCode" >
                                             <div class="invalid-feedback">
                                                 Le numéro de téléphone est obligatoire
                                             </div>
@@ -100,7 +100,7 @@
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
                         <input name="name" id="name" type="text" class="form-control ps-5" placeholder="Nom complet :"
-                            v-model="registerForm.name">
+                            v-model="registerForm.name" :readonly="showConfirmCode">
                     </div>
                 </div>
             </div>
@@ -115,7 +115,12 @@
                             d'utilisations</a></label>
                 </div>
 
-                <button class="btn btn-primary w-100" type="submit">Inscrivez-vous</button>
+                <button class="btn btn-primary w-100" type="submit" :disabled="loading">
+                    <span v-if="!loading">Inscrivez-vous</span>
+                    <div class="text-center" v-else>
+                        <div class="spinner-border" role="status"></div>
+                    </div>
+                </button>
 
                 <div class="col-12 text-center mt-3">
                     <p class="mb-0 mt-3"><small class="text-dark me-2">Avez-vous déjà un compte ?</small>
@@ -137,7 +142,12 @@
                 </div>
             </div>
 
-            <button class="btn btn-primary w-100 mt-2" type="submit">Confirmer</button>
+            <button class="btn btn-primary w-100" type="submit" :disabled="loadConfirm">
+                <span v-if="!loadConfirm">Confirmer</span>
+                <div class="text-center" v-else>
+                    <div class="spinner-border" role="status"></div>
+                </div>
+            </button>
         </form>
         <p class="mb-0 text-muted mt-3 text-center">2024 Billetfacile.</p>
     </div>
@@ -162,7 +172,8 @@ const registerForm = reactive({
 })
 const countries = ref([]);
 const showConfirmCode = ref(false)
-const { loading, formData, login_token, onRegister, onConfirmAuth } = useAuth();
+const { loading, formData, login_token, onRegister } = useAuth();
+const { loading: loadConfirm, onConfirmAuth } = useAuth();
 
 onMounted(async () => {
     const { data: countriesData, pending } = await $fetch('http://localhost:8000/api/countries');

@@ -4,8 +4,8 @@
             <img src="/images/logobf.png" class="d-block mx-auto" alt="" height="70">
         </a>
         <h5 class="mb-3 text-center">Rejoignez nous</h5>
-        
-        <form @submit.prevent="onLogin">
+
+        <form @submit.prevent="toLogin">
             <div class="row mb-2">
                 <div class="col-lg-12">
                     <ul class="nav nav-pills nav-justified rounded" id="pills-tab" role="tablist">
@@ -49,7 +49,7 @@
                                                 <polyline points="22,6 12,13 2,6"></polyline>
                                             </svg>
                                             <input name="email" id="email" type="email" class="form-control ps-5"
-                                                placeholder="Email " v-model="loginForm.email">
+                                                placeholder="Email " v-model="loginForm.email" :readonly="showConfirmCode">
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +71,8 @@
                                                     country.calling_code }}</option>
                                             </template> -->
                                             </select>
-                                            <input type="tel" class="form-control" id="phone" placeholder="Téléphone">
+                                            <input type="tel" class="form-control" id="phone" placeholder="Téléphone"
+                                                v-model="loginForm.phone" :readonly="showConfirmCode">
                                             <div class="invalid-feedback">
                                                 Le numéro de téléphone est obligatoire
                                             </div>
@@ -80,88 +81,108 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- <div class="col-md-12 mt-4">
-                            <div class="mb-1">
-                                <label class="form-label mb-0">Code de confirmation <span
-                                        class="text-danger">*</span></label>
-                                <div class="form-icon position-relative">
-                                    <i class="fas fa-lock fea icon-sm icons"></i>
-                                    <input name="name" id="name" type="text" class="form-control ps-5"
-                                        v-model="loginForm.login_code" placeholder="Code de confirmation" required>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
 
-            <button class="btn btn-primary w-100 mt-3" type="submit">Connexion</button>
-
-            <div class="col-12 text-center mt-3">
+            
+            <div class="col-12 text-center mt-3" v-if="!showConfirmCode">
+                <button class="btn btn-primary w-100 mt-3" type="submit">Connexion</button>
                 <p class="mb-0 mt-3"><small class="text-dark me-2">Vous n'avez pas de compte ?</small>
                     <NuxtLink to="/auth/register" class="text-dark fw-bold">S'inscrire</NuxtLink>
                 </p>
             </div>
-
-            <p class="mb-0 text-muted mt-3 text-center">2024 Billetfacile.</p>
+            
         </form>
 
+        <!-- Confirmer le code  -->
+        <form v-if="showConfirmCode" @submit.prevent="confirmRegister">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label class="form-label mb-0">Code de confirmation <span class="text-danger">*</span></label>
+                    <div class="form-icon position-relative">
+                        <Icon name="uil:lock" class="fea icon-sm icons" color="black" />
+                        <input name="name" id="name" type="text" class="form-control ps-5"
+                            v-model="loginForm.login_code" placeholder="Code de confirmation" required>
+                    </div>
+                </div>
+            </div>
 
+            <button class="btn btn-primary w-100" type="submit" :disabled="loadConfirm">
+                <span v-if="!loadConfirm">Confirmer</span>
+                <div class="text-center" v-else>
+                    <div class="spinner-border" role="status"></div>
+                </div>
+            </button>
+        </form>
+
+        <p class="mb-0 text-muted mt-3 text-center">2024 Billetfacile.</p>
     </div>
 </template>
 
 <script setup>
+import useAuth from '~/services/auth';
+
 definePageMeta({
     layout: "auth"
 })
 
-const router = useRouter()
-
 const loginForm = reactive({
     email: "",
-    phone: "623419147",
-    name: "Amar Diallo",
+    phone: "",
+    name: "",
     country: "GN",
     choice: "email",
     login_token: "",
     login_code: ""
-})
+});
 
-const handleLogin = async () => {
-    await useFetch('http://localhost:8000/sanctum/csrf-cookie') 
-} 
+const showConfirmCode = ref(false);
+const { loading, formData, login_token, onLogin } = useAuth();
+const { loading: loadConfirm, onConfirmAuth } = useAuth();
 
-// onMounted(async () => {
-//     const { data } = await useFetch('http://localhost:8000/api/categories', "POST",)
-//     console.log(data.value)
-// })
+const toLogin = async () => {
+    console.log(loginForm)
 
-const onLogin = async () => {
-    await $fetch('http://localhost:8000/sanctum/csrf-cookie', {
-        credentials: "include"
+    const dataPosted = reactive({
+        name: loginForm.name,
+        isAccepted: loginForm.isAccepted,
     });
 
-    const token = useCookie('XSRF-TOKEN');
-
-    const { data: myData } = await $fetch('http://localhost:8000/user', {
-        credentials: "include",
-        watch: false,
-        headers: {
-            'X-XSRF-TOKEN': token.value
-        }
+    if (loginForm.choice == 'email') {
+        dataPosted.email = loginForm.email;
+        dataPosted.choice = loginForm.choice;
+    }
+    if (loginForm.choice == 'phone') {
+        dataPosted.phone = loginForm.phone;
+        dataPosted.choice = loginForm.choice;
+        dataPosted.country = loginForm.country;
+    }
+    formData.value = dataPosted;
+    await onLogin().then(() => {
+        showConfirmCode.value = true;
+        loginForm.login_token = login_token.value;
     });
+}
 
-    // const { data: myData } = await $fetch('http://localhost:8000/register', {
-    //     credentials: "include",
-    //     method: 'POST',
-    //     body: loginForm,
-    //     watch: false,
-    //     headers: {
-    //         'X-XSRF-TOKEN': token.value
-    //     }
-    // });
+const confirmRegister = async () => {
+    const dataPosted = reactive({
+        name: loginForm.name,
+        isAccepted: loginForm.isAccepted,
+        login_token: loginForm.login_token,
+        login_code: loginForm.login_code
+    })
 
-    console.log(myData)
+    if (loginForm.choice == 'email') {
+        dataPosted.email = loginForm.email;
+        dataPosted.choice = loginForm.choice;
+    }
+    if (loginForm.choice == 'phone') {
+        dataPosted.phone = loginForm.phone;
+        dataPosted.choice = loginForm.choice;
+        dataPosted.country = loginForm.country;
+    }
+
+    await onConfirmAuth(dataPosted);
 }
 </script>

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 axios.defaults.baseURL = "http://localhost:8000"
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
@@ -35,7 +36,7 @@ export default function useAuth() {
     const router = useRouter();
     const successMessage = ref(null);
     const showMessage = ref(false);
-    const tickets = ref([])
+    const tickets = ref([]);
 
     const onLogin = async () => {
         try {
@@ -45,7 +46,9 @@ export default function useAuth() {
                 let response = await axios.post('/w-login', formData.value);
                 if (response.status === 200) {
                     loading.value = false;
+                    login_token.value = response.data.login_token;
                 }
+                console.log(response)
             });
         } catch (error: any) {
             loading.value = false;
@@ -105,6 +108,7 @@ export default function useAuth() {
                 loading.value = false;
                 console.log(response.data)
                 sessionStorage.setItem('token', response.data.token)
+                router.push('/company/create')
             }
         } catch (error: any) {
             loading.value = false
