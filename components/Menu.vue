@@ -25,33 +25,33 @@
 
                                     <ul class="sidebar-menu">
                                         <li class="active">
-                                            <a href="javascript:void(0)"><i class="ti ti-home me-2"></i>Dashboard</a>
+                                            <NuxtLink to="/"><i class="ti ti-home me-2"></i>Dashboard</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <a href="javascript:void(0)"><i class="ti ti-browser me-2"></i>Publier un événement</a>
+                                            <NuxtLink to="/events/create"><i class="ti ti-share me-2"></i>Publier un événement</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <a href="javascript:void(0)"><i class="ti ti-apps me-2"></i>Liste des événements</a>
+                                            <NuxtLink to="/events/list"><i class="ti ti-list me-2"></i>Liste des événements</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <a href="javascript:void(0)"><i class="ti ti-user me-2"></i>Validation des billets</a>
+                                            <a href="javascript:void(0)"><i class="ti ti-circle-check me-2"></i>Validation des billets</a>
                                         </li>
                                         <li class="">
-                                            <a href="javascript:void(0)"><i
-                                                    class="ti ti-brand-gravatar me-2"></i>Publier une cagnotte</a>
+                                            <NuxtLink to="/collectes/create"><i
+                                                    class="ti ti-share me-2"></i>Publier une cagnotte</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <a href="javascript:void(0)"><i
-                                                    class="ti ti-shopping-cart me-2"></i>Liste des cagnottes</a>
+                                            <NuxtLink to="/collectes/list"><i
+                                                    class="ti ti-gift me-2"></i>Liste des cagnottes</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <a href="javascript:void(0)"><i class="ti ti-camera me-2"></i>Comment ça marche</a>
+                                            <a href="javascript:void(0)"><i class="ti ti-cash me-2"></i>Comment ça marche</a>
                                         </li>
                                         <li class="">
-                                            <a href="javascript:void(0)"><i class="ti ti-file-info me-2"></i>Contactez-nous</a>
+                                            <a href="javascript:void(0)"><i class="ti ti-address-book me-2"></i>Contactez-nous</a>
                                         </li>
                                         <li class="">
-                                            <a href="javascript:void(0)"><i class="ti ti-file-info me-2"></i>Aller sur le site</a>
+                                            <a href="javascript:void(0)"><i class="ti ti-globe me-2"></i>Aller sur le site</a>
                                         </li>
                                     </ul>
                                     <!-- sidebar-menu  -->
