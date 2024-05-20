@@ -72,7 +72,7 @@
         <br />
 
         <div class="d-md-flex justify-content-between align-items-center border-top pt-4">
-            <h5 class="mb-0">Evénements publiés (7)</h5>
+            <h5 class="mb-0">Evénements publiés ({{ events.length }})</h5>
         </div>
 
         <div class="row">
@@ -93,13 +93,13 @@
                             <tr v-for="(event, index) in events" :key="index">
                                 <th class="p-3">{{ index + 1 }}</th>
                                 <td class="p-3">
-                                    <a href="#" class="text-primary">
+                                    <NuxtLink :to="'/events/' + event.slug" class="text-primary">
                                         <div class="d-flex align-items-center">
                                             <img :src="event.image"
                                                 class="avatar avatar-ex-small rounded-circle shadow" alt="">
                                             <span class="ms-2">{{event.title }}</span>
                                         </div>
-                                    </a>
+                                    </NuxtLink>
                                 </td>
                                 <td class="text-center p-3">12/02/2024</td>
                                 <td class="text-center p-3">12/02/2023</td>

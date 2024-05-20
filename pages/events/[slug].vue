@@ -1,9 +1,10 @@
 <template>
-    <div class="row">
+    <div class="row" v-if="eventDetail">
         <!-- BLog Start -->
         <div class="col-lg-9 col-md-6 mt-4">
             <div class="card blog blog-primary blog-detail border-0 shadow rounded">
-                <img src="assets/images/blog/bg1.jpg" class="img-fluid rounded-top" alt="">
+                <img :src="eventDetail.image" class="img-fluid rounded-top" :alt="eventDetail.title">
+                <h3 class="m-2">{{ eventDetail.title }}</h3>
             </div>
 
             <div class="row">
@@ -17,8 +18,8 @@
                                 <div class="text-center">
                                     <h6 class="mb-0">Tickets</h6>
                                 </div>
-                            </a><!--end nav link-->
-                        </li><!--end nav item-->
+                            </a>
+                        </li>
 
                         <li class="nav-item m-1" role="presentation">
                             <a class="nav-link py-2 px-5 rounded" id="additional-info" data-bs-toggle="pill"
@@ -27,8 +28,8 @@
                                 <div class="text-center">
                                     <h6 class="mb-0">Participants</h6>
                                 </div>
-                            </a><!--end nav link-->
-                        </li><!--end nav item-->
+                            </a>
+                        </li>
 
                         <li class="nav-item m-1" role="presentation">
                             <a class="nav-link py-2 px-5 rounded " id="review-comments" data-bs-toggle="pill"
@@ -36,20 +37,95 @@
                                 <div class="text-center">
                                     <h6 class="mb-0">Détails</h6>
                                 </div>
-                            </a><!--end nav link-->
-                        </li><!--end nav item-->
+                            </a>
+                        </li>
                     </ul>
 
                     <div class="tab-content mt-4" id="pills-tabContent">
                         <div class="card border-0 tab-pane fade p-4 rounded shadow active" id="description"
                             role="tabpanel" aria-labelledby="description-data">
-                            <p class="text-muted mb-0">Due to its widespread use as filler text for layouts,
-                                non-readability is of great importance: human perception is tuned to recognize certain
-                                patterns and repetitions in texts. If the distribution of letters and 'words' is random,
-                                the reader will not be distracted from making a neutral judgement on the visual impact
-                                and readability of the typefaces (typography), or the distribution of text on the page
-                                (layout or type area). For this reason, dummy text usually consists of a more or less
-                                random series of words or syllables.</p>
+                            <div class="invoice-table pb-4">
+                                <div class="table-responsive bg-white shadow rounded">
+                                    <table class="table mb-0 table-center invoice-tb">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th scope="col" class="border-bottom text-start">Type ticket</th>
+                                                <th scope="col" class="border-bottom text-center">Ticket générés</th>
+                                                <th scope="col" class="border-bottom text-center">T vendus</th>
+                                                <th scope="col" class="border-bottom text-center">T restants</th>
+                                                <th scope="col" class="border-bottom">Frais</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th class="text-start">1</th>
+                                                <td class="text-center">0</td>
+                                                <td class="text-center">0</td>
+                                                <td class="text-center">0</td>
+                                                <td class="text-end">0 GNF</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <h4>Évoltion des ventes</h4>
+
+                            <div class="invoice-table pb-4">
+                                <div class="table-responsive bg-white shadow rounded">
+                                    <table class="table mb-0 table-center invoice-tb">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th scope="col" class="border-bottom text-start">Type ticket</th>
+                                                <th scope="col" class="border-bottom text-center">Ticket générés</th>
+                                                <th scope="col" class="border-bottom text-center">T vendus</th>
+                                                <th scope="col" class="border-bottom text-center">T restants</th>
+                                                <th scope="col" class="border-bottom">Frais</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th class="text-start">1</th>
+                                                <td class="text-center">0</td>
+                                                <td class="text-center">0</td>
+                                                <td class="text-center">0</td>
+                                                <td class="text-end">0 GNF</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <h4>Tableau des présences</h4>
+
+                            <div class="invoice-table pb-4">
+                                <div class="table-responsive bg-white shadow rounded">
+                                    <table class="table mb-0 table-center invoice-tb">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th scope="col" class="border-bottom text-start">Type ticket</th>
+                                                <th scope="col" class="border-bottom text-center">Ticket générés</th>
+                                                <th scope="col" class="border-bottom text-center">T vendus</th>
+                                                <th scope="col" class="border-bottom text-center">T restants</th>
+                                                <th scope="col" class="border-bottom">Frais</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th class="text-start">1</th>
+                                                <td class="text-center">0</td>
+                                                <td class="text-center">0</td>
+                                                <td class="text-center">0</td>
+                                                <td class="text-end">0 GNF</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="card border-0 tab-pane fade" id="additional" role="tabpanel"
@@ -145,8 +221,7 @@
                                             </div>
                                         </li>
                                     </ul>
-                                </div><!--end col-->
-
+                                </div>
                                 <div class="col-lg-6 mt-4 mt-lg-0 pt-2 pt-lg-0">
                                     <form class="ms-lg-4">
                                         <div class="row">
@@ -248,8 +323,7 @@
                                                             required=""></textarea>
                                                     </div>
                                                 </div>
-                                            </div><!--end col-->
-
+                                            </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Name <span
@@ -267,8 +341,7 @@
                                                             class="form-control ps-5" required="">
                                                     </div>
                                                 </div>
-                                            </div><!--end col-->
-
+                                            </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Your Email <span
@@ -288,17 +361,17 @@
                                                             class="form-control ps-5" required="">
                                                     </div>
                                                 </div>
-                                            </div><!--end col-->
+                                            </div>
 
                                             <div class="col-md-12">
                                                 <div class="send d-grid">
                                                     <button type="submit" class="btn btn-primary">Submit</button>
                                                 </div>
-                                            </div><!--end col-->
-                                        </div><!--end row-->
-                                    </form><!--end form-->
-                                </div><!--end col-->
-                            </div><!--end row-->
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -322,7 +395,7 @@
 
                     <div class="col-md-12 my-2">
                         <div class="send d-grid">
-                            <button type="submit" class="btn btn-soft-primary outline">Générer des tickets</button>
+                            <button type="submit" class="btn btn-soft-primary outline">Code de l'événement</button>
                         </div>
                     </div>
 
@@ -352,8 +425,14 @@
         </div>
     </div>
 </template>
-<script>
-export default {
+<script setup>
+const route = useRoute();
+const eventStore = useEventStore();
+const eventDetail = computed(() => eventStore.getEventDetail);
 
-}
+onMounted(async () => {
+    await eventStore.fetchEventDetail(route.params.slug)
+})
+
+
 </script>
