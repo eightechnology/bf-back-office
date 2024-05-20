@@ -90,21 +90,21 @@
                         </thead>
                         <tbody>
                             <!-- Start -->
-                            <tr v-for="(t, index) in 5" :key="index">
+                            <tr v-for="(event, index) in events" :key="index">
                                 <th class="p-3">{{ index + 1 }}</th>
                                 <td class="p-3">
                                     <a href="#" class="text-primary">
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/client/01.jpg"
+                                            <img :src="event.image"
                                                 class="avatar avatar-ex-small rounded-circle shadow" alt="">
-                                            <span class="ms-2">Cérémonie d'ouverture du stade</span>
+                                            <span class="ms-2">{{event.title }}</span>
                                         </div>
                                     </a>
                                 </td>
                                 <td class="text-center p-3">12/02/2024</td>
                                 <td class="text-center p-3">12/02/2023</td>
                                 <td class="text-end p-3">
-                                    <router-link to="/events/1" class="btn btn-sm btn-primary">Ouvrir</router-link>
+                                    <NuxtLink :to="'/events/' + event.slug" class="btn btn-sm btn-primary">Ouvrir</NuxtLink>
                                     <!-- <a href="#" class="btn btn-sm btn-soft-primary ms-2"><i class="fas fa-eye"></i></a> -->
                                 </td>
                             </tr>
@@ -134,8 +134,11 @@
         </div>
     </div>
 </template>
-<script>
-export default {
+<script setup>
+import useEvents from '~/services/events';
+const { loading, events, onGetEventsList } = useEvents();
 
-}
+onMounted(async () => {
+    await onGetEventsList();
+})
 </script>
