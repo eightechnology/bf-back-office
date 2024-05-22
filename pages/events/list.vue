@@ -135,10 +135,10 @@
     </div>
 </template>
 <script setup>
-import useEvents from '~/services/events';
-const { loading, events, onGetEventsList } = useEvents();
+const eventStore = useEventStore();
+const events = computed(() => eventStore.getEventList);
 
 onMounted(async () => {
-    await onGetEventsList();
+    await eventStore.fetchEvents();
 })
 </script>

@@ -21,28 +21,43 @@ export const useEventStore = defineStore('events', {
     state: () => ({
         loading: false,
         eventDetail: {},
-        events: []
+        events: [],
+        compangySlug: sessionStorage.getItem('companySlug')
     }),
 
     getters: {
-        getEventDetail(state) {
-            return state.eventDetail
-        }
+        getEventDetail(state) { return state.eventDetail; },
+        getEventList(state) { return state.events; }
     },
 
     actions: {
+        async fetchEvents() {
+            try {
+                this.loading = true;
+                let response = await axios.get("/api/agencies/" + this.compangySlug + "/events/");
+                if (response.status === 200) {
+                    this.loading = false;
+                    this.events = response.data.data
+                    console.log(response.data.data)
+                }
+            } catch (error) {
+                this.loading = false;
+            }
+        },
+
         async fetchEventDetail(slug: string) {
             try {
                 this.loading = true;
-                let response = await axios.get("/api/agencies/tab/events/" + slug)
+                let response = await axios.get("/api/agencies/" + this.compangySlug + "/events/" + slug)
                 if (response.status === 200) {
                     this.loading = false;
                     this.eventDetail = response.data.data
                     console.log(response.data.data)
                 }
             } catch (error) {
-
+                this.loading = false;
             }
-        }
+        },
+        
     }
 })

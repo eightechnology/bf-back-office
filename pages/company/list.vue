@@ -8,7 +8,9 @@
         <div class="d-flex flex-row justify-content-center">
             <div class="p-6 mx-2" v-for="(company, index) in companies" :key="index">
                 <div class="card" style="width: 10rem;">
-                    <img :src="company.logo" class="card-img-top" :alt="company.name">
+                    <a @click="onSelectCompany(company)" style="cursor: pointer;">
+                        <img :src="company.logo"  class="card-img-top" :alt="company.name">
+                    </a>
                 </div>
             </div>
         </div>
@@ -19,15 +21,25 @@
 </template>
 
 <script setup>
-import useCompany from '~/services/company';
-
 definePageMeta({
     layout: "auth"
 })
 
-const { loading, companies, onGetCompanyList } = useCompany();
+const router = useRouter();
+const companyStore = useCompagnyStore();
+const companies = computed(() => companyStore.getCompagnies);
 
 onMounted(async () => {
-    await onGetCompanyList();
+    await companyStore.fetchCompagnies().then(() => {
+        if (companies.value.length == 1) {
+            sessionStorage.setItem('companySlug', companies.value[0].slug);
+            router.push('/')
+        }
+    });
 })
+
+const onSelectCompany = (company) => {
+    sessionStorage.setItem('companySlug', company.slug);
+    router.push('/');
+}
 </script>

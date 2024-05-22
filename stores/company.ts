@@ -21,7 +21,8 @@ axios.interceptors.request.use(
 export const useCompagnyStore = defineStore('compagny', {
     state: () => ({
         loading: false,
-        compagnies: []
+        compagnies: [],
+        
     }),
 
     getters: {
@@ -34,7 +35,7 @@ export const useCompagnyStore = defineStore('compagny', {
         async fetchCompagnies() {
             try {
                 this.loading = true;
-                let response = await axios.get('/api/gencies/companies');
+                let response = await axios.get('/api/agencies/companies');
                 if (response.status == 200) {
                     this.loading = false;
                     console.log(response.data.data)

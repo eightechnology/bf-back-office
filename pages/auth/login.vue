@@ -49,7 +49,8 @@
                                                 <polyline points="22,6 12,13 2,6"></polyline>
                                             </svg>
                                             <input name="email" id="email" type="email" class="form-control ps-5"
-                                                placeholder="Email " v-model="loginForm.email" :readonly="showConfirmCode">
+                                                placeholder="Email " v-model="loginForm.email"
+                                                :readonly="showConfirmCode">
                                         </div>
                                     </div>
                                 </div>
@@ -85,14 +86,14 @@
                 </div>
             </div>
 
-            
+
             <div class="col-12 text-center mt-3" v-if="!showConfirmCode">
                 <button class="btn btn-primary w-100 mt-3" type="submit">Connexion</button>
                 <p class="mb-0 mt-3"><small class="text-dark me-2">Vous n'avez pas de compte ?</small>
                     <NuxtLink to="/auth/register" class="text-dark fw-bold">S'inscrire</NuxtLink>
                 </p>
             </div>
-            
+
         </form>
 
         <!-- Confirmer le code  -->
@@ -126,7 +127,8 @@ definePageMeta({
 })
 
 const router = useRouter();
-
+const companyStore = useCompagnyStore();
+const companies = computed(() => companyStore.getCompagnies);
 const authStore = useAuthStore();
 const login_token = computed(() => authStore.getLoginToken);
 const loading = computed(() => authStore.getLoading);
@@ -180,8 +182,15 @@ const confirmRegister = async () => {
         dataPosted.country = loginForm.country;
     }
 
-    await authStore.onConfirmAuth(dataPosted).then(() => {
-        router.push('/company/list');
+    await authStore.onConfirmAuth(dataPosted).then(async () => {
+        await companyStore.fetchCompagnies().then(() => {
+            if (companies.value.length == 1) {
+                sessionStorage.setItem('companySlug', companies.value[0].slug);
+                router.push('/')
+            } else {
+                router.push('/company/list');
+            }
+        });
     });
 }
 </script>
