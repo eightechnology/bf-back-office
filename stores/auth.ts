@@ -89,8 +89,8 @@ export const useAuthStore = defineStore('auth', {
                     let response = await axios.post('/logout');
                     if (response.status === 201) {
                         this.loading = false;
-                        localStorage.removeItem('_token')
-                        location.reload()
+                        sessionStorage.clear();
+                        location.assign('/auth/login');
                     }
                 });
             } catch (error: any) {

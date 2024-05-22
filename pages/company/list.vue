@@ -33,13 +33,15 @@ onMounted(async () => {
     await companyStore.fetchCompagnies().then(() => {
         if (companies.value.length == 1) {
             sessionStorage.setItem('companySlug', companies.value[0].slug);
-            router.push('/')
+            sessionStorage.setItem('compangy', JSON.stringify(companies.value[0]))
+            location.assign('/');
         }
     });
 })
 
 const onSelectCompany = (company) => {
     sessionStorage.setItem('companySlug', company.slug);
-    router.push('/');
+    sessionStorage.setItem('company', JSON.stringify(company));
+    location.assign('/');
 }
 </script>

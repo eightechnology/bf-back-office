@@ -109,31 +109,27 @@
                 </li>
 
                 <li class="list-inline-item mb-0 ms-1">
-                    <div class="dropdown dropdown-primary">
+                    <div class="dropdown dropdown-primary" v-if="compangy">
                         <button type="button" class="btn btn-soft-light dropdown-toggle p-0" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false"><img src="/assets/images/client/05.jpg"
+                            aria-haspopup="true" aria-expanded="false"><img :src="compangy.logo"
                                 class="avatar avatar-ex-small rounded" alt=""></button>
                         <div class="dropdown-menu dd-menu dropdown-menu-end shadow border-0 mt-3 py-3"
-                            style="min-width: 200px;">
+                            style="min-width: 200px;" >
                             <a class="dropdown-item d-flex align-items-center text-dark pb-3" href="profile.html">
-                                <img src="/assets/images/client/05.jpg"
+                                <img :src="compangy.logo"
                                     class="avatar avatar-md-sm rounded-circle border shadow" alt="">
                                 <div class="flex-1 ms-2">
-                                    <span class="d-block">Cristina Julia</span>
-                                    <small class="text-muted">UI / UX Designer</small>
+                                    <span class="d-block">{{ compangy.name }}</span>
+                                    <small class="text-muted">{{ compangy.address}}</small>
                                 </div>
                             </a>
-                            <a class="dropdown-item text-dark" href="index.html"><span class="mb-0 d-inline-block me-1"><i
-                                        class="ti ti-home"></i></span> Dashboard</a>
+                            <NuxtLink class="dropdown-item text-dark" to="/company/list"><span class="mb-0 d-inline-block me-1"><i
+                                        class="ti ti-home"></i></span> Changer d'organisation</NuxtLink>
                             <a class="dropdown-item text-dark" href="profile.html"><span class="mb-0 d-inline-block me-1"><i
-                                        class="ti ti-settings"></i></span> Profile</a>
-                            <a class="dropdown-item text-dark" href="email.html"><span class="mb-0 d-inline-block me-1"><i
-                                        class="ti ti-mail"></i></span> Email</a>
+                                        class="ti ti-settings"></i></span> Modifier</a>
                             <div class="dropdown-divider border-top"></div>
-                            <a class="dropdown-item text-dark" href="lock-screen.html"><span
-                                    class="mb-0 d-inline-block me-1"><i class="ti ti-lock"></i></span> Lockscreen</a>
-                            <a class="dropdown-item text-dark" href="login.html"><span class="mb-0 d-inline-block me-1"><i
-                                        class="ti ti-logout"></i></span> Logout</a>
+                            <a class="dropdown-item text-dark" @click="logout()" style="cursor: pointer;"><span class="mb-0 d-inline-block me-1"><i
+                                        class="ti ti-logout"></i></span> Déconnexion</a>
                         </div>
                     </div>
                 </li>
@@ -143,5 +139,10 @@
 </template>
 
 <script setup>
+const compangy = computed(() => JSON.parse(sessionStorage.getItem('company')));
+const authStore = useAuthStore();
 
+const logout = async () => {
+    await authStore.onLogout();
+}
 </script>

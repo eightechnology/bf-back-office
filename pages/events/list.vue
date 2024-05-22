@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="d-md-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Evénements non publier (5)</h5>
+            <h5 class="mb-0">Evénements non publier (1)</h5>
 
-            <!-- <nav aria-label="breadcrumb" class="d-inline-block mt-2 mt-sm-0">
+            <nav aria-label="breadcrumb" class="d-inline-block mt-2 mt-sm-0">
                 <button class="btn btn-primary">
                     <i class="fas fa-plus"></i>
                     Ajouter
                 </button>
-            </nav> -->
+            </nav>
         </div>
 
         <div class="row">
@@ -26,7 +26,7 @@
                         </thead>
                         <tbody>
                             <!-- Start -->
-                            <tr v-for="(t, index) in 3" :key="index">
+                            <tr v-for="(t, index) in 1" :key="index">
                                 <th class="p-3">{{ index + 1 }}</th>
                                 <td class="p-3">
                                     <a href="#" class="text-primary">
