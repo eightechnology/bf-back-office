@@ -35,7 +35,7 @@ export default function useEvents() {
     const onGetEventsList = async () => {
         try {
             loading.value = true;
-            let response = await axios.get("/api/agencies/eight/events")
+            let response = await axios.get("/api/agencies/tab/events")
             if (response.status === 200) {
                 loading.value = false;
                 events.value = response.data.data;
@@ -63,7 +63,7 @@ export default function useEvents() {
     const onGetEventDetail = async () => {
         try {
             loading.value = true;
-            let response = await axios.get("/api/agencies/eight/events")
+            let response = await axios.get("/api/agencies/tab/events")
             if (response.status === 200) {
                 loading.value = false;
                 events.value = response.data.data;
@@ -92,7 +92,7 @@ export default function useEvents() {
         try {
             loading.value = true;
             let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
-                let response = await axios.post('/api/agencies/eight/events', formData.value);
+                let response = await axios.post('/api/agencies/tab/events', formData.value);
                 if (response.status === 201) {
                     loading.value = false;
                 }

@@ -34,7 +34,7 @@ export const useEventStore = defineStore('events', {
         async fetchEventDetail(slug: string) {
             try {
                 this.loading = true;
-                let response = await axios.get("/api/agencies/eight/events/" + slug)
+                let response = await axios.get("/api/agencies/tab/events/" + slug)
                 if (response.status === 200) {
                     this.loading = false;
                     this.eventDetail = response.data.data

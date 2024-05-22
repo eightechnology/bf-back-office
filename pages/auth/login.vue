@@ -108,8 +108,8 @@
                 </div>
             </div>
 
-            <button class="btn btn-primary w-100" type="submit" :disabled="loadConfirm">
-                <span v-if="!loadConfirm">Confirmer</span>
+            <button class="btn btn-primary w-100" type="submit" :disabled="loading">
+                <span v-if="!loading">Confirmer</span>
                 <div class="text-center" v-else>
                     <div class="spinner-border" role="status"></div>
                 </div>
@@ -121,11 +121,16 @@
 </template>
 
 <script setup>
-import useAuth from '~/services/auth';
-
 definePageMeta({
     layout: "auth"
 })
+
+const router = useRouter();
+
+const authStore = useAuthStore();
+const login_token = computed(() => authStore.getLoginToken);
+const loading = computed(() => authStore.getLoading);
+const showConfirmCode = computed(() => authStore.getShowConfirmCode);
 
 const loginForm = reactive({
     email: "",
@@ -137,13 +142,9 @@ const loginForm = reactive({
     login_code: ""
 });
 
-const showConfirmCode = ref(false);
-const { loading, formData, login_token, onLogin } = useAuth();
-const { loading: loadConfirm, onConfirmAuth } = useAuth();
+
 
 const toLogin = async () => {
-    console.log(loginForm)
-
     const dataPosted = reactive({
         name: loginForm.name,
         isAccepted: loginForm.isAccepted,
@@ -158,18 +159,14 @@ const toLogin = async () => {
         dataPosted.choice = loginForm.choice;
         dataPosted.country = loginForm.country;
     }
-    formData.value = dataPosted;
-    await onLogin().then(() => {
-        showConfirmCode.value = true;
-        loginForm.login_token = login_token.value;
-    });
+    await authStore.onLogin(dataPosted)
 }
 
 const confirmRegister = async () => {
     const dataPosted = reactive({
         name: loginForm.name,
         isAccepted: loginForm.isAccepted,
-        login_token: loginForm.login_token,
+        login_token: login_token.value,
         login_code: loginForm.login_code
     })
 
@@ -183,6 +180,8 @@ const confirmRegister = async () => {
         dataPosted.country = loginForm.country;
     }
 
-    await onConfirmAuth(dataPosted);
+    await authStore.onConfirmAuth(dataPosted).then(() => {
+        router.push('/company/list');
+    });
 }
 </script>
