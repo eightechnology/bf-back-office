@@ -182,6 +182,8 @@ import useVuelidate from '@vuelidate/core'
 import { required, email, minLength, helpers, sameAs } from '@vuelidate/validators'
 // import { useCategoryStore } from '~/stores/category';
 
+const eventStore = useEventStore();
+
 const eventForm = reactive({
     title: "",
     phone: "",
@@ -195,7 +197,8 @@ const eventForm = reactive({
     desc_video: "",
     exit_allowed: false,
     category: "",
-    country: "GN"
+    country: "GN",
+    is_public: "true"
 });
 
 const rules = computed(() => (
@@ -242,10 +245,9 @@ const onSaveEvent = async () => {
     dataForm.append('exit_allowed', eventForm.exit_allowed);
     dataForm.append('category', eventForm.category);
     dataForm.append('country', eventForm.country);
-
-    console.log(eventForm)
+    dataForm.append('is_public', eventForm.is_public);
     formData.value = dataForm;
-    await onCreateEvent();
+    await eventStore.onCreateEvent(formData.value)
 }
 
 </script>

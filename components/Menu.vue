@@ -12,13 +12,13 @@
                                 aria-label="scrollable content" style="height: 100%; overflow: hidden;">
                                 <div class="simplebar-content" style="padding: 0px;">
                                     <div class="sidebar-brand active">
-                                        <a href="index.html">
-                                            <img src="assets/images/logo-dark.png" height="24" class="logo-light-mode"
+                                        <a href="/">
+                                            <img src="assets/images/logobf.png" height="74" class="logo-light-mode"
                                                 alt="">
-                                            <img src="assets/images/logo-light.png" height="24" class="logo-dark-mode"
+                                            <img src="assets/images/logobf.png" height="74" class="logo-dark-mode"
                                                 alt="">
-                                            <span class="sidebar-colored">
-                                                <img src="assets/images/logo-light.png" height="24" alt="">
+                                            <span class="sidebar-colored mx-4">
+                                                <img src="assets/images/logobf.png" height="74" alt="">
                                             </span>
                                         </a>
                                     </div>

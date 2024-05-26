@@ -13,13 +13,12 @@
                         id="pills-tab" role="tablist">
                         <li class="nav-item m-1" role="presentation">
                             <a class="nav-link py-2 px-5 rounded active" id="description-data" data-bs-toggle="pill"
-                                href="#description" role="tab" aria-controls="description" aria-selected="false"
-                                tabindex="-1">
+                                href="#description" role="tab" aria-controls="description" aria-selected="true">
                                 <div class="text-center">
-                                    <h6 class="mb-0">Tickets</h6>
+                                    <h6 class="mb-0">Tikets</h6>
                                 </div>
-                            </a>
-                        </li>
+                            </a><!--end nav link-->
+                        </li><!--end nav item-->
 
                         <li class="nav-item m-1" role="presentation">
                             <a class="nav-link py-2 px-5 rounded" id="additional-info" data-bs-toggle="pill"
@@ -28,21 +27,21 @@
                                 <div class="text-center">
                                     <h6 class="mb-0">Participants</h6>
                                 </div>
-                            </a>
-                        </li>
+                            </a><!--end nav link-->
+                        </li><!--end nav item-->
 
                         <li class="nav-item m-1" role="presentation">
-                            <a class="nav-link py-2 px-5 rounded " id="review-comments" data-bs-toggle="pill"
-                                href="#review" role="tab" aria-controls="review" aria-selected="true">
+                            <a class="nav-link py-2 px-5 rounded" id="review-comments" data-bs-toggle="pill"
+                                href="#review" role="tab" aria-controls="review" aria-selected="false" tabindex="-1">
                                 <div class="text-center">
                                     <h6 class="mb-0">Détails</h6>
                                 </div>
-                            </a>
-                        </li>
+                            </a><!--end nav link-->
+                        </li><!--end nav item-->
                     </ul>
 
                     <div class="tab-content mt-4" id="pills-tabContent">
-                        <div class="card border-0 tab-pane fade p-4 rounded shadow active" id="description"
+                        <div class="card border-0 tab-pane fade p-4 rounded shadow active show" id="description"
                             role="tabpanel" aria-labelledby="description-data">
                             <div class="invoice-table pb-4">
                                 <div class="table-responsive bg-white shadow rounded">
@@ -150,7 +149,7 @@
                             </table>
                         </div>
 
-                        <div class="card border-0 tab-pane fade p-4 rounded shadow  show" id="review" role="tabpanel"
+                        <div class="card border-0 tab-pane fade p-4 rounded shadow" id="review" role="tabpanel"
                             aria-labelledby="review-comments">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -221,7 +220,8 @@
                                             </div>
                                         </li>
                                     </ul>
-                                </div>
+                                </div><!--end col-->
+
                                 <div class="col-lg-6 mt-4 mt-lg-0 pt-2 pt-lg-0">
                                     <form class="ms-lg-4">
                                         <div class="row">
@@ -323,7 +323,8 @@
                                                             required=""></textarea>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div><!--end col-->
+
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Name <span
@@ -341,7 +342,8 @@
                                                             class="form-control ps-5" required="">
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div><!--end col-->
+
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Your Email <span
@@ -361,35 +363,35 @@
                                                             class="form-control ps-5" required="">
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div><!--end col-->
 
                                             <div class="col-md-12">
                                                 <div class="send d-grid">
                                                     <button type="submit" class="btn btn-primary">Submit</button>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                                            </div><!--end col-->
+                                        </div><!--end row-->
+                                    </form><!--end form-->
+                                </div><!--end col-->
+                            </div><!--end row-->
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
         <!-- BLog End -->
 
         <!-- START SIDEBAR -->
         <div class="col-lg-3 col-md-6 col-12 mt-4">
             <div class="card border-0 rounded shadow p-4 widget">
-                <div class="text-center">
+                <div class="text-center" v-if="company">
                     <div class="mt-4">
-                        <img src="assets/images/client/03.jpg"
+                        <img :src="company.logo"
                             class="img-fluid avatar avatar-medium rounded-pill shadow-md d-block mx-auto" alt="">
 
-                        <a href="blog-about.html" class="text-primary h5 mt-4 mb-0 d-block">EIGHT TECHNOLOGY</a>
-                        <small class="text-muted d-block">Photographer &amp; Blogger</small>
+                        <a href="blog-about.html" class="text-primary h5 mt-4 mb-0 d-block">{{ company.name }}</a>
+                        <small class="text-muted d-block">{{ company.address }}</small>
+                        <small class="text-muted d-block">{{ company.email }}</small>
                     </div>
                     <hr>
 
@@ -412,7 +414,8 @@
                 <div class="widget-grid overflow-hidden mt-3">
                     <div class="col-md-12">
                         <div class="send d-grid">
-                            <button type="submit" class="btn btn-primary" @click="onAddTicket()">Ajouter un ticket</button>
+                            <button type="submit" class="btn btn-primary" @click="onAddTicket()">Ajouter un
+                                ticket</button>
                         </div>
                     </div>
                     <div class="col-md-12 my-2">
@@ -426,17 +429,26 @@
     </div>
 </template>
 <script setup>
+import { useTicketStore } from '~/stores/ticket';
+
+const { $locally } = useNuxtApp();
 const route = useRoute();
 const router = useRouter();
 const eventStore = useEventStore();
+const ticketStore = useTicketStore();
 const eventDetail = computed(() => eventStore.getEventDetail);
+const company = computed(() => JSON.parse(sessionStorage.getItem('company')));
 
 onMounted(async () => {
     await eventStore.fetchEventDetail(route.params.slug)
 })
 
 const onAddTicket = () => {
-    return router.push('/events/tickets');
+    if (eventDetail.value.dates) {
+        const slug = ref(eventDetail.value)
+        ticketStore.checkDateEventSlug(eventDetail.value);
+        router.push('/events/tickets');
+    }
 }
 
 

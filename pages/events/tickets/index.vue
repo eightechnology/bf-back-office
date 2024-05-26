@@ -6,138 +6,95 @@
 
         <div class="row">
             <div class="col-md-6 col-lg-6">
-                <form enctype="multipart/form-data">
+                <form @submit.prevent="onAddTicket">
                     <div class="card border-0 rounded shadow p-4">
                         <h5 class="mb-0">Ajouter un ticket</h5>
                         <div class="row mt-4">
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label for="title" class="form-label">Titre (<span
+                                    <label for="title" class="form-label">Nom du ticket (<span
                                             class="text-danger">*</span>)</label>
-                                    <input type="text" class="form-control " id="title"
-                                        placeholder="Titre de l'événement">
-                                    <!-- <div v-if="v$.title.$error" class="text-danger">
-                                        <p>Le titre est obligatoire</p>
-                                    </div> -->
+                                    <input type="text" class="form-control " id="title" placeholder="Titre du ticket"
+                                        :class="v$.name.$error ? 'invalid' : ''" @input="v$.name.$touch()"
+                                        v-model="ticketForm.name">
+                                    <div v-if="v$.name.$error" class="text-danger">
+                                        <p>Le nom du ticket est obligatoire</p>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label for="category" class="form-label">Catégorie (<span
+                                    <label for="title" class="form-label">Nombre de places (<span
                                             class="text-danger">*</span>)</label>
-                                    <select class="form-select form-control" aria-label="Séléctionner">
-                                        <option value="">Séléctionner</option>
-                                        <!-- <option v-for="(category, index) in categories" :value="category.slug">{{
-                                            category.name }}</option> -->
-                                    </select>
-                                    <!-- <div v-if="v$.category.$error" class="text-danger">
-                                        <p>Séléctionner une catégorie</p>
-                                    </div> -->
+                                    <input type="number" class="form-control " id="title" placeholder="Nombre de places"
+                                        :class="v$.capacity.$error ? 'invalid' : ''" @input="v$.capacity.$touch()"
+                                        v-model="ticketForm.capacity">
+                                    <div v-if="v$.capacity.$error" class="text-danger">
+                                        <p>Le nombre de places est obligatoire</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Prix #GNF (<span
+                                            class="text-danger">*</span>)</label>
+                                    <input type="number" class="form-control " id="title" placeholder="Prix"
+                                        :class="v$.price.$error ? 'invalid' : ''" @input="v$.price.$touch()"
+                                        v-model="ticketForm.price">
+                                    <div v-if="v$.price.$error" class="text-danger">
+                                        <p>Le prix est obligatoire</p>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="phone" class="form-label">Téléphone (<span
-                                            class="text-danger">*</span>)</label>
-                                    <input type="tel" class="form-control" id="phone" placeholder="Numéro de téléphone">
-                                    <!-- <div class="text-danger" v-if="v$.phone.$error">
-                                        {{ v$.phone.$errors[0].$message }}
-                                    </div> -->
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="address" class="form-label">Lieu de l'événement (<span
-                                            class="text-danger">*</span>)</label>
-                                    <input type="text" class="form-control" id="address"
-                                        placeholder="Lieu de l'événement">
-                                    <!-- <div v-if="v$.address.$error" class="text-danger">
-                                        <p>Le lieu est obligatoire</p>
-                                    </div> -->
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="date" class="form-label">Date début (<span
-                                            class="text-danger">*</span>)</label>
-                                    <input type="date" class="form-control" id="date" placeholder="Date début">
-                                    <!-- <div v-if="v$.starts_at.$error" class="text-danger">
-                                        <p>La date début est obligatoire</p>
-                                    </div> -->
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="date" class="form-label">Date fin (<span
-                                            class="text-danger">*</span>)</label>
-                                    <input type="date" class="form-control" id="date">
-                                    <!-- <div v-if="v$.ends_at.$error" class="text-danger">
-                                        <p>La date fin est obligatoire</p>
-                                    </div> -->
-                                </div>
-                            </div>
-
-                            <!-- <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="time" class="form-label">Heure début (<span
-                                            class="text-danger">*</span>)</label>
-                                    <input type="time" class="form-control" id="time" placeholder="Heure début">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="time" class="form-label">Heure fin (<span
-                                            class="text-danger">*</span>)</label>
-                                    <input type="time" class="form-control" id="time" placeholder="Heure fin">
-                                </div>
-                            </div> -->
-
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="image" class="form-label">Photo de couverture (<span
-                                            class="text-danger">*</span>)</label>
-                                    <input type="file" class="form-control" id="image"
-                                        placeholder="Photo de couverture">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="link" class="form-label">Lien youtube</label>
-                                    <input type="text" class="form-control" id="link" placeholder="Lien youtube">
-                                </div>
-                            </div>
-
-                            <!-- <div class="col-lg-6">
+                                <label for="title" class="form-label">Autoriser la vente des billets ? (<span
+                                        class="text-danger">*</span>)</label>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <div class="form-check mb-0">
                                         <input class="form-check-input" checked type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault1" v-model="eventForm.type">
-                                        <label class="form-check-label" for="flexRadioDefault1">Gratuit</label>
+                                            id="flexRadioDefault2" v-model="ticketForm.sellable">
+                                        <label class="form-check-label" for="flexRadioDefault2">Non</label>
                                     </div>
                                 </div>
 
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <div class="form-check mb-0">
                                         <input class="form-check-input" checked type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault2" v-model="eventForm.type">
-                                        <label class="form-check-label" for="flexRadioDefault2">Payant</label>
+                                            id="flexRadioDefault1" v-model="ticketForm.sellable">
+                                        <label class="form-check-label" for="flexRadioDefault1">Oui</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-lg-6">
+                                <label for="title" class="form-label">Afficher les prix ? (<span
+                                            class="text-danger">*</span>)</label>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <div class="form-check mb-0">
+                                        <input class="form-check-input" checked type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault3">
+                                        <label class="form-check-label" for="flexRadioDefault1">Oui</label>
+                                    </div>
+                                </div>
+
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <div class="form-check mb-0">
+                                        <input class="form-check-input" checked type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault4">
+                                        <label class="form-check-label" for="flexRadioDefault2">Non</label>
                                     </div>
                                 </div>
                             </div> -->
                         </div>
                         <div class="mb-0 mt-4 text-end">
-                            <button class="btn btn-primary" type="submit">
-                                <span>Ajouter</span>
-                                <!-- <div class="text-center" v-else>
+                            <button class="btn btn-primary" type="submit" :disabled="loading || v$.$invalid">
+                                <span v-if="!loading">Ajouter</span>
+                                <div class="text-center" v-else>
                                     <div class="spinner-border" role="status"></div>
-                                </div> -->
+                                </div>
                             </button>
                         </div>
                     </div>
@@ -153,20 +110,27 @@
                             <table class="table mb-0 table-center invoice-tb">
                                 <thead class="bg-light">
                                     <tr>
-                                        <th scope="col" class="border-bottom text-start">Type ticket</th>
-                                        <th scope="col" class="border-bottom text-center">Ticket générés</th>
-                                        <th scope="col" class="border-bottom text-center">T vendus</th>
-                                        <th scope="col" class="border-bottom text-center">T restants</th>
-                                        <th scope="col" class="border-bottom">Frais</th>
+                                        <th scope="col" class="border-bottom text-start">Ticket</th>
+                                        <th scope="col" class="border-bottom text-center">Prix (GNF)</th>
+                                        <th scope="col" class="border-bottom text-center">Nb de places</th>
+                                        <th scope="col" class="border-bottom text-center">Status</th>
+                                        <th scope="col" class="border-bottom text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th class="text-start">1</th>
-                                        <td class="text-center">0</td>
-                                        <td class="text-center">0</td>
-                                        <td class="text-center">0</td>
-                                        <td class="text-end">0 GNF</td>
+                                    <tr v-for="(ticket, index) in 3" :key="index">
+                                        <th class="text-start">VIP</th>
+                                        <td class="text-center">200 000 </td>
+                                        <td class="text-center">40</td>
+                                        <td class="text-center">Actif</td>
+                                        <td class="text-center">
+                                            <a href="" class="mx-2">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                            <a href="">
+                                                <i class="fa-solid fa-trash" style="color: red;"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -176,6 +140,58 @@
 
             </div>
         </div>
-
     </div>
 </template>
+
+<script setup>
+import useVuelidate from '@vuelidate/core';
+import { required, email, minLength, helpers, sameAs } from '@vuelidate/validators';
+import { useTicketStore } from '~/stores/ticket';
+
+const ticketStore = useTicketStore();
+const dateEventSlug = computed(() => ticketStore.getDateEventSlug);
+const loading = computed(() => ticketStore.getLoading);
+const ends_at = computed(() => ticketStore.getEndsAt);
+
+// const showPrintable = false;
+
+const savedTicketForm = reactive({
+    dateevent: "",
+    tickets: []
+});
+
+const ticketForm = reactive({
+    name: "",
+    capacity: 0,
+    price: 0,
+    sellable: true,
+    printable: true,
+    client_charged: true,
+    limit: 0,
+    close_at: ""
+})
+
+const rules = computed(() => (
+    {
+        name: { required },
+        capacity: { required },
+        price: { required }
+    }
+));
+
+const v$ = useVuelidate(rules, ticketForm);
+
+const onAddTicket = async () => {
+    console.log(ticketForm)
+    ticketForm.ends_at = ends_at.value
+    savedTicketForm.dateevent = dateEventSlug.value
+    savedTicketForm.tickets = ticketForm;
+    ticketStore.onCreateTicket(savedTicketForm);
+}
+</script>
+
+<style scoped>
+.invalid {
+    border-color: #e43f52 !important
+}
+</style>

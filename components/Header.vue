@@ -5,8 +5,8 @@
                 <a href="#" class="logo-icon me-3">
                     <img src="/images/logo-icon.png" height="30" class="small" alt="">
                     <span class="big">
-                        <img src="/images/logo-dark.png" height="24" class="logo-light-mode" alt="">
-                        <img src="/images/logo-light.png" height="24" class="logo-dark-mode" alt="">
+                        <img src="/images/logobf.png" height="24" class="logo-light-mode" alt="">
+                        <img src="/images/logobf.png" height="24" class="logo-dark-mode" alt="">
                     </span>
                 </a>
                 <a id="close-sidebar" class="btn btn-icon btn-soft-light" href="javascript:void(0)">

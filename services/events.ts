@@ -31,6 +31,7 @@ export default function useEvents() {
     const successMessage = ref(null);
     const showMessage = ref(false);
     const events = ref([]);
+    
 
     const onGetEventsList = async () => {
         try {
@@ -92,7 +93,7 @@ export default function useEvents() {
         try {
             loading.value = true;
             let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
-                let response = await axios.post('/api/agencies/tab/events', formData.value);
+                let response = await axios.post('/api/agencies/eight/events', formData.value);
                 if (response.status === 201) {
                     loading.value = false;
                 }

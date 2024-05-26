@@ -23,6 +23,7 @@ export default defineNuxtConfig({
         { rel: 'stylesheet', href: "/css/icons.min.css", type: "text/css" },
         { rel: 'stylesheet', href: "/libs/@iconscout/unicons/css/line.css", type: "text/css" },
         { rel: 'stylesheet', href: "/css/style.min.css", type: "text/css" },
+        { rel: 'stylesheet', href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" },
       ],
       script: [
         { src: '/libs/bootstrap/js/bootstrap.bundle.min.js', body: true },
