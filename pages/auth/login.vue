@@ -123,7 +123,8 @@
 
 <script setup>
 definePageMeta({
-    layout: "auth"
+    layout: "auth",
+    middleware: ["guest"]
 })
 
 const router = useRouter();

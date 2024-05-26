@@ -5,7 +5,8 @@ axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 axios.interceptors.request.use(
     (config) => {
-        const token = sessionStorage.getItem('token')
+        const { $locally } = useNuxtApp();
+        const token = $locally.getItem('token');
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
@@ -41,7 +42,7 @@ export const useAuthStore = defineStore('auth', {
                         this.loading = false;
                         this.showConfirmCode = true;
                         this.login_token = response.data.login_token
-                        
+
                     }
                 });
             } catch (error: any) {
@@ -74,7 +75,8 @@ export const useAuthStore = defineStore('auth', {
                         this.loading = false;
                         this.login_token = response.data.login_token;
                         this.showConfirmCode = false;
-                        sessionStorage.setItem('token', response.data.token);
+                        const { $locally } = useNuxtApp();
+                        $locally.setItem('token', response.data.token);
                     }
                 });
             } catch (error: any) {

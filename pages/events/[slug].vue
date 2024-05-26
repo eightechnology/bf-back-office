@@ -412,7 +412,7 @@
                 <div class="widget-grid overflow-hidden mt-3">
                     <div class="col-md-12">
                         <div class="send d-grid">
-                            <button type="submit" class="btn btn-primary">Ajouter un ticket</button>
+                            <button type="submit" class="btn btn-primary" @click="onAddTicket()">Ajouter un ticket</button>
                         </div>
                     </div>
                     <div class="col-md-12 my-2">
@@ -427,12 +427,17 @@
 </template>
 <script setup>
 const route = useRoute();
+const router = useRouter();
 const eventStore = useEventStore();
 const eventDetail = computed(() => eventStore.getEventDetail);
 
 onMounted(async () => {
     await eventStore.fetchEventDetail(route.params.slug)
 })
+
+const onAddTicket = () => {
+    return router.push('/events/tickets');
+}
 
 
 </script>
