@@ -91,7 +91,7 @@
                         </div>
                         <div class="mb-0 mt-4 text-end">
                             <button class="btn btn-primary" type="submit" :disabled="loading || v$.$invalid">
-                                <span v-if="!loading">Ajouter</span>
+                                <span v-if="!loading"><i class="fa-solid fa-plus mx-2"></i>Ajouter</span>
                                 <div class="text-center" v-else>
                                     <div class="spinner-border" role="status"></div>
                                 </div>
@@ -113,16 +113,17 @@
                                         <th scope="col" class="border-bottom text-start">Ticket</th>
                                         <th scope="col" class="border-bottom text-center">Prix (GNF)</th>
                                         <th scope="col" class="border-bottom text-center">Nb de places</th>
-                                        <th scope="col" class="border-bottom text-center">Status</th>
+                                        <th scope="col" class="border-bottom text-center">A vendre</th>
                                         <th scope="col" class="border-bottom text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(ticket, index) in 3" :key="index">
-                                        <th class="text-start">VIP</th>
-                                        <td class="text-center">200 000 </td>
-                                        <td class="text-center">40</td>
-                                        <td class="text-center">Actif</td>
+                                    <tr v-for="(ticket, index) in tickets" :key="index">
+                                        <th class="text-start">{{ ticket.name }}</th>
+                                        <td class="text-center">{{ ticket.price }} GNF</td>
+                                        <td class="text-center">{{ ticket.remain }}</td>
+                                        <td class="text-center" v-if="ticket.sellable">Oui</td>
+                                        <td class="text-center" v-else>Non</td>
                                         <td class="text-center">
                                             <a href="" class="mx-2">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -137,6 +138,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="mb-0 mt-4 text-end">
+                    <button class="btn btn-danger" @click="onGoBack()"><i
+                            class="fa-solid fa-arrow-left mx-2"></i>Retour</button>
+                </div>
 
             </div>
         </div>
@@ -148,19 +153,19 @@ import useVuelidate from '@vuelidate/core';
 import { required, email, minLength, helpers, sameAs } from '@vuelidate/validators';
 import { useTicketStore } from '~/stores/ticket';
 
+const { $swal } = useNuxtApp();
+
+const router = useRouter();
 const ticketStore = useTicketStore();
 const dateEventSlug = computed(() => ticketStore.getDateEventSlug);
 const loading = computed(() => ticketStore.getLoading);
 const ends_at = computed(() => ticketStore.getEndsAt);
+const tickets = computed(() => ticketStore.getTickets);
 
 // const showPrintable = false;
 
-const savedTicketForm = reactive({
-    dateevent: "",
-    tickets: []
-});
-
 const ticketForm = reactive({
+    dateevent: "",
     name: "",
     capacity: 0,
     price: 0,
@@ -181,12 +186,26 @@ const rules = computed(() => (
 
 const v$ = useVuelidate(rules, ticketForm);
 
+onMounted(async () => {
+    await ticketStore.fetchTickets();
+})
+
 const onAddTicket = async () => {
     console.log(ticketForm)
-    ticketForm.ends_at = ends_at.value
-    savedTicketForm.dateevent = dateEventSlug.value
-    savedTicketForm.tickets = ticketForm;
-    ticketStore.onCreateTicket(savedTicketForm);
+    ticketForm.close_at = ends_at.value
+    ticketForm.dateevent = dateEventSlug.value
+    ticketStore.onCreateTicket(ticketForm).then(() => {
+        $swal.fire({
+            title: "Bravo!",
+            text: "Le ticket est ajouté!",
+            icon: "success"
+        });
+        ticketStore.fetchTickets()
+    });
+}
+
+const onGoBack = () => {
+    router.back();
 }
 </script>
 

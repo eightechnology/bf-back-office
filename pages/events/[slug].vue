@@ -52,16 +52,16 @@
                                                 <th scope="col" class="border-bottom text-center">Ticket générés</th>
                                                 <th scope="col" class="border-bottom text-center">T vendus</th>
                                                 <th scope="col" class="border-bottom text-center">T restants</th>
-                                                <th scope="col" class="border-bottom">Frais</th>
+                                                <th scope="col" class="border-bottom">Prix</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th class="text-start">1</th>
+                                            <tr v-for="(ticket, index) in tickets" :key="index">
+                                                <th class="text-start">{{ ticket.name }}</th>
                                                 <td class="text-center">0</td>
                                                 <td class="text-center">0</td>
-                                                <td class="text-center">0</td>
-                                                <td class="text-end">0 GNF</td>
+                                                <td class="text-center">{{ ticket.remain }}</td>
+                                                <td class="text-end">{{ ticket.price }} GNF</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -438,9 +438,13 @@ const eventStore = useEventStore();
 const ticketStore = useTicketStore();
 const eventDetail = computed(() => eventStore.getEventDetail);
 const company = computed(() => JSON.parse(sessionStorage.getItem('company')));
+const tickets = ref([]);
 
 onMounted(async () => {
-    await eventStore.fetchEventDetail(route.params.slug)
+    await eventStore.fetchEventDetail(route.params.slug).then(() => {
+        tickets.value = eventDetail.value.dates[0].tickets
+        console.log(tickets.value)
+    })
 })
 
 const onAddTicket = () => {

@@ -62,17 +62,17 @@ export const useEventStore = defineStore('events', {
         async onCreateEvent(formData: any) {
             try {
                 this.loading = true;
-                let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
-                    let response = await axios.post('/api/agencies/' + this.compangySlug + '/events', formData);
-                    if (response.status === 201) {
-                        this.loading = false;
-                    }
-                    console.log(response)
-                });
+                // let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
+                let response = await axios.post('/api/agencies/' + this.compangySlug + '/events', formData);
+                if (response.status === 201) {
+                    this.loading = false;
+                }
+                console.log(response)
+                // });
             } catch (error: any) {
                 this.loading = false;
             }
         }
-        
+
     }
 })

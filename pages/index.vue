@@ -1,7 +1,6 @@
 <template>
     <div>
         <h1>Dashboard...</h1>
-        <button @click="changePage()">test</button>
     </div>
 </template>
 
