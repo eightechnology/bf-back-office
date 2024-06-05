@@ -7,7 +7,8 @@
 <script setup>
 definePageMeta({
     middleware: ["auth"]
-})
+});
+
 const router = useRouter();
 const changePage = () => {
     console.log("test")

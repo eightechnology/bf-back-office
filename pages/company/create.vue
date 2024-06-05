@@ -77,7 +77,8 @@
 import useCompany from '~/services/company';
 
 definePageMeta({
-    layout: "auth"
+    layout: "auth",
+    middleware: "auth"
 })
 
 const companyForm = reactive({

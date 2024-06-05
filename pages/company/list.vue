@@ -22,9 +22,11 @@
 
 <script setup>
 definePageMeta({
-    layout: "auth"
+    layout: "auth", 
+    middleware: "auth"
 })
 
+const { $locally } = useNuxtApp();
 const router = useRouter();
 const companyStore = useCompagnyStore();
 const companies = computed(() => companyStore.getCompagnies);
@@ -32,9 +34,10 @@ const companies = computed(() => companyStore.getCompagnies);
 onMounted(async () => {
     await companyStore.fetchCompagnies().then(() => {
         if (companies.value.length == 1) {
-            sessionStorage.setItem('companySlug', companies.value[0].slug);
-            sessionStorage.setItem('compangy', JSON.stringify(companies.value[0]))
+            $locally.setItem('companySlug', companies.value[0].slug);
+            console.log(companies.value[0])
             location.assign('/');
+            
         }
     });
 })

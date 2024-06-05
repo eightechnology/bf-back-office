@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- Register form  -->
         <form @submit.prevent="register">
             <a href="index.html">
                 <img src="/images/logobf.png" class="d-block mx-auto" alt="" height="60">
@@ -51,7 +50,12 @@
                                                 <polyline points="22,6 12,13 2,6"></polyline>
                                             </svg>
                                             <input name="email" id="email" type="email" class="form-control ps-5"
-                                                placeholder="Email " v-model="registerForm.email" :readonly="showConfirmCode">
+                                                :class="v$.email.$error ? 'is-invalid' : ''" placeholder="Email "
+                                                v-model="registerForm.email" :readonly="showConfirmCode"
+                                                @input="v$.email.$touch()">
+                                            <div class="text-danger" v-if="v$.email.$error">
+                                                {{ v$.email.$errors[0].$message }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -74,10 +78,12 @@
                                                 </template>
                                             </select>
                                             <input type="tel" class="form-control" id="phone" placeholder="Téléphone"
-                                                v-model="registerForm.phone" :readonly="showConfirmCode" >
-                                            <div class="invalid-feedback">
-                                                Le numéro de téléphone est obligatoire
-                                            </div>
+                                                :class="v$.phone.$error ? 'is-invalid' : ''"
+                                                v-model="registerForm.phone" maxlength="9" :readonly="showConfirmCode"
+                                                @input="v$.phone.$touch()">
+                                        </div>
+                                        <div class="text-danger" v-if="v$.phone.$error">
+                                            {{ v$.phone.$errors[0].$message }}
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +106,11 @@
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
                         <input name="name" id="name" type="text" class="form-control ps-5" placeholder="Nom complet :"
-                            v-model="registerForm.name" :readonly="showConfirmCode">
+                            v-model="registerForm.name" :readonly="showConfirmCode" @input="v$.name.$touch()"
+                            :class="v$.name.$error ? 'is-invalid' : ''">
+                        <div v-if="v$.name.$error" class="text-danger">
+                            <p>Le nom est obligatoire</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -109,13 +119,17 @@
             <div v-if="!showConfirmCode">
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
-                        v-model="registerForm.isAccepted" required>
+                        @input="v$.isAccepted.$touch()" v-model="registerForm.isAccepted" required
+                        :class="v$.isAccepted.$error ? 'is-invalid' : ''">
                     <label class="form-check-label" for="flexCheckDefault">Accepter les <a href="#"
                             class="text-primary">conditions
                             d'utilisations</a></label>
+                    <div v-if="v$.isAccepted.$error" class="text-danger">
+                        <p>Vous devez accepter les conditions</p>
+                    </div>
                 </div>
 
-                <button class="btn btn-primary w-100" type="submit" :disabled="loading">
+                <button class="btn btn-primary w-100" type="submit" :disabled="loading || v$.$invalid">
                     <span v-if="!loading">Inscrivez-vous</span>
                     <div class="text-center" v-else>
                         <div class="spinner-border" role="status"></div>
@@ -132,18 +146,21 @@
         <!-- Confirmer le code  -->
         <form v-if="showConfirmCode" @submit.prevent="confirmRegister">
             <div class="col-md-12">
-                <div class="mb-3">
-                    <label class="form-label mb-0">Code de confirmation <span class="text-danger">*</span></label>
+                <div class="my-3">
+                    <label class="form-label mb-1">Code de confirmation <span class="text-danger">*</span></label>
                     <div class="form-icon position-relative">
                         <Icon name="uil:lock" class="fea icon-sm icons" color="black" />
-                        <input name="name" id="name" type="text" class="form-control ps-5"
-                            v-model="registerForm.login_code" placeholder="Code de confirmation" required>
+                        <input name="name" id="name" type="text" class="form-control ps-5" :class="c$.login_code.$error ? 'is-invalid' : ''"
+                            v-model="registerForm.login_code" placeholder="Code de confirmation" @input="c$.login_code.$touch()" required>
+                        <div class="text-danger" v-if="c$.login_code.$error">
+                            {{ c$.login_code.$errors[0].$message }}
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <button class="btn btn-primary w-100" type="submit" :disabled="loadConfirm">
-                <span v-if="!loadConfirm">Confirmer</span>
+            <button class="btn btn-primary w-100" type="submit" :disabled="loading || c$.$invalid">
+                <span v-if="!loading">Confirmer</span>
                 <div class="text-center" v-else>
                     <div class="spinner-border" role="status"></div>
                 </div>
@@ -158,7 +175,17 @@ definePageMeta({
     layout: "auth"
 });
 
+import useVuelidate from '@vuelidate/core'
+import { required, email, minLength, helpers, requiredIf } from '@vuelidate/validators'
 import useAuth from '~/services/auth';
+
+const authStore = useAuthStore();
+const companyStore = useCompagnyStore();
+
+const login_token = computed(() => authStore.getLoginToken);
+const loading = computed(() => authStore.getLoading);
+const showConfirmCode = computed(() => authStore.getShowConfirmCode);
+const companies = computed(() => companyStore.getCompagnies);
 
 const registerForm = reactive({
     name: "",
@@ -169,11 +196,26 @@ const registerForm = reactive({
     login_token: "",
     login_code: "",
     isAccepted: false
-})
+});
+
+const rules = computed(() => (
+    {
+        name: { required },
+        phone: { requiredIf: helpers.withMessage("Le téléphone est obligatoire.", requiredIf(registerForm.email == "")), minLength: helpers.withMessage("Le numéro invalide.", minLength(9)) },
+        email: { requiredIf: helpers.withMessage("L'email est obligatoire.", requiredIf(registerForm.phone == "")), email: helpers.withMessage("L'email n'est pas correcte.", email) },
+        isAccepted: { requiredIf: helpers.withMessage("Vous devez accepter les conditions", requiredIf(registerForm.isAccepted == false)) },
+    }
+));
+
+const newRules = computed(() => (
+    {
+        login_code: { required: helpers.withMessage("Le code est obligatoire", required), minLength: helpers.withMessage("Le code doit comporter 4 chiffres", minLength(4)) }
+    }
+))
+const v$ = useVuelidate(rules, registerForm);
+const c$ = useVuelidate(newRules, registerForm);
+
 const countries = ref([]);
-const showConfirmCode = ref(false)
-const { loading, formData, login_token, onRegister } = useAuth();
-const { loading: loadConfirm, onConfirmAuth } = useAuth();
 
 onMounted(async () => {
     const { data: countriesData, pending } = await $fetch('http://localhost:8000/api/countries');
@@ -182,9 +224,6 @@ onMounted(async () => {
 })
 
 const register = async () => {
-
-    // const { loading: loadConfirm, onConfirmAuth } = useAuth();
-
     const dataPosted = reactive({
         name: registerForm.name,
         isAccepted: registerForm.isAccepted,
@@ -199,18 +238,15 @@ const register = async () => {
         dataPosted.choice = registerForm.choice;
         dataPosted.country = registerForm.country;
     }
-    formData.value = dataPosted;
-    await onRegister().then(() => {
-        showConfirmCode.value = true;
-        registerForm.login_token = login_token.value;
-    });
+
+    await authStore.onRegister(dataPosted);
 }
 
 const confirmRegister = async () => {
     const dataPosted = reactive({
         name: registerForm.name,
         isAccepted: registerForm.isAccepted,
-        login_token: registerForm.login_token,
+        login_token: login_token.value,
         login_code: registerForm.login_code
     })
 
@@ -224,7 +260,7 @@ const confirmRegister = async () => {
         dataPosted.country = registerForm.country;
     }
 
-    await onConfirmAuth(dataPosted);
+    await authStore.onConfirmAuth(dataPosted);
 }
 
 

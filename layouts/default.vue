@@ -1,5 +1,6 @@
 <template>
     <div class="page-wrapper toggled" id="mytoogle">
+        <ClientOnly>
         <nav id="sidebar" class="sidebar-wrapper sidebar-dark">
             <div class="sidebar-content" data-simplebar="init" style="height: calc(100% - 60px);">
                 <div class="simplebar-wrapper" style="margin: 0px;">
@@ -124,7 +125,7 @@
             <!-- Sidebar Footer -->
         </nav>
 
-        <ClientOnly>
+        
             <!-- Start Page Content -->
             <main class="page-content bg-light">
                 <!-- Top Header -->
@@ -248,19 +249,19 @@
                             </li>
 
                             <li class="list-inline-item mb-0 ms-1">
-                                <div class="dropdown dropdown-primary" v-if="compangy">
+                                <div class="dropdown dropdown-primary" v-if="company">
                                     <button type="button" class="btn btn-soft-light dropdown-toggle p-0"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                                            :src="compangy.logo" class="avatar avatar-ex-small rounded" alt=""></button>
+                                            :src="company.logo" class="avatar avatar-ex-small rounded" alt=""></button>
                                     <div class="dropdown-menu dd-menu dropdown-menu-end shadow border-0 mt-3 py-3"
                                         style="min-width: 200px;">
                                         <a class="dropdown-item d-flex align-items-center text-dark pb-3"
                                             href="profile.html">
-                                            <img :src="compangy.logo"
+                                            <img :src="company.logo"
                                                 class="avatar avatar-md-sm rounded-circle border shadow" alt="">
                                             <div class="flex-1 ms-2">
-                                                <span class="d-block">{{ compangy.name }}</span>
-                                                <small class="text-muted">{{ compangy.address }}</small>
+                                                <span class="d-block">{{ company.name }}</span>
+                                                <small class="text-muted">{{ company.address }}</small>
                                             </div>
                                         </a>
                                         <NuxtLink class="dropdown-item text-dark" to="/company/list"><span
@@ -295,14 +296,19 @@
 </template>
 <script setup>
 const { $locally } = useNuxtApp();
-// const compangy = computed(() => $locally.getItem('token'));
-// const compangy = computed(() => JSON.parse(sessionStorage.getItem('company')));
-const compangy = computed(() => JSON.parse(sessionStorage.getItem('company')));
+
 const authStore = useAuthStore();
+const companyStore = useCompagnyStore();
+
+const slug = computed(() => $locally.getItem('companySlug'));
+const company = computed(() => companyStore.getCompany);
+
 const isToogle = ref(true);
 
-onMounted(() => {
-    console.log(compangy.value)
+onMounted(async () => {
+    if(!company.value.slug) {
+        await companyStore.fetchSelectedCompany(slug.value)
+    }
 })
 
 const moveToggle = () => {

@@ -1,5 +1,9 @@
 import Swal from 'sweetalert2';
 
-export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.provide('swal', Swal)
+export default defineNuxtPlugin(async () => {
+  return {
+    provide: {
+      swal: Swal
+    }
+  }
 })

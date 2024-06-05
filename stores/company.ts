@@ -21,14 +21,14 @@ axios.interceptors.request.use(
 export const useCompagnyStore = defineStore('compagny', {
     state: () => ({
         loading: false,
+        company: {},
         compagnies: [],
         
     }),
 
     getters: {
-        getCompagnies(state) {
-            return state.compagnies
-        }
+        getCompagnies(state) { return state.compagnies },
+        getCompany(state) { return state.company; }
     },
 
     actions: {
@@ -46,6 +46,22 @@ export const useCompagnyStore = defineStore('compagny', {
 
             }
         },
+
+        async fetchSelectedCompany(slug: string) {
+            try {
+                this.loading = true;
+                let response = await axios.get('/api/companies/' + slug);
+                if (response.status == 200) {
+                    this.loading = false;
+                    console.log(response.data.data)
+                    this.company = response.data.data;
+                }
+            } catch (error) {
+                this.loading = false;
+
+            }
+        },
+
 
         async onCreateCompangy(formData: any) {
             try {

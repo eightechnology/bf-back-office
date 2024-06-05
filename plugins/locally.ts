@@ -2,7 +2,7 @@ export default defineNuxtPlugin(() => {
     return {
         provide: {
             locally: {
-                getItem(item: string) {
+                getItem(item: any) {
                     if(process.client) {
                         return sessionStorage.getItem(item)
                     } else {
@@ -10,7 +10,7 @@ export default defineNuxtPlugin(() => {
                     }
                 },
 
-                setItem(item: string, value: string) {
+                setItem(item: string, value: any) {
                     if (process.client) {
                         return sessionStorage.setItem(item, value)
                     }
