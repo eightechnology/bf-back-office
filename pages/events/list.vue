@@ -29,7 +29,7 @@
                             <tr v-for="(t, index) in 1" :key="index">
                                 <th class="p-3">{{ index + 1 }}</th>
                                 <td class="p-3">
-                                    <a href="#" class="text-primary">
+                                    <a href="#">
                                         <div class="d-flex align-items-center">
                                             <img src="assets/images/client/01.jpg"
                                                 class="avatar avatar-ex-small rounded-circle shadow" alt="">
@@ -54,14 +54,14 @@
                 <!-- PAGINATION START -->
                 <div class="col-12 mt-4">
                     <div class="d-md-flex align-items-center text-center justify-content-between">
-                        <span class="text-muted me-3">Showing 1 - 10 out of 50</span>
+                        <span class="text-muted me-3">Affichage de 1 à 10 sur 50</span>
                         <ul class="pagination mb-0 justify-content-center mt-4 mt-sm-0">
                             <li class="page-item"><a class="page-link" href="javascript:void(0)"
-                                    aria-label="Previous">Prev</a></li>
+                                    aria-label="Previous">Prec</a></li>
                             <li class="page-item active"><a class="page-link" href="#">1</a></li>
                             <li class="page-item"><a class="page-link" href="#">2</a></li>
                             <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#" aria-label="Next">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="#" aria-label="Next">Suiv</a></li>
                         </ul>
                     </div>
                 </div><!--end col-->
@@ -93,7 +93,7 @@
                             <tr v-for="(event, index) in events" :key="index">
                                 <th class="p-3">{{ index + 1 }}</th>
                                 <td class="p-3">
-                                    <NuxtLink :to="'/events/' + event.slug" class="text-primary">
+                                    <NuxtLink :to="'/events/' + event.slug">
                                         <div class="d-flex align-items-center">
                                             <img :src="event.image"
                                                 class="avatar avatar-ex-small rounded-circle shadow" alt="">
@@ -118,14 +118,14 @@
                 <!-- PAGINATION START -->
                 <div class="col-12 mt-4">
                     <div class="d-md-flex align-items-center text-center justify-content-between">
-                        <span class="text-muted me-3">Showing 1 - 10 out of 50</span>
+                        <span class="text-muted me-3">Affichage de 1 à 10 sur 50</span>
                         <ul class="pagination mb-0 justify-content-center mt-4 mt-sm-0">
                             <li class="page-item"><a class="page-link" href="javascript:void(0)"
-                                    aria-label="Previous">Prev</a></li>
+                                    aria-label="Previous">Prec</a></li>
                             <li class="page-item active"><a class="page-link" href="#">1</a></li>
                             <li class="page-item"><a class="page-link" href="#">2</a></li>
                             <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#" aria-label="Next">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="#" aria-label="Next">Suiv</a></li>
                         </ul>
                     </div>
                 </div><!--end col-->
