@@ -5,7 +5,8 @@ axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 axios.interceptors.request.use(
     (config) => {
-        const token = sessionStorage.getItem('token')
+        const { $locally } = useNuxtApp();
+        const token = $locally.getItem('token');
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
@@ -31,7 +32,7 @@ export default function useEvents() {
     const successMessage = ref(null);
     const showMessage = ref(false);
     const events = ref([]);
-    
+
 
     const onGetEventsList = async () => {
         try {
@@ -92,13 +93,17 @@ export default function useEvents() {
     const onCreateEvent = async () => {
         try {
             loading.value = true;
-            let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
-                let response = await axios.post('/api/agencies/eight/events', formData.value);
-                if (response.status === 201) {
-                    loading.value = false;
+            // let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
+            let response = await axios.post('/api/agencies/eight/events', formData.value, {
+                headers: {
+                    'Content-Type': 'application/json',
                 }
-                console.log(response)
             });
+            if (response.status === 201) {
+                loading.value = false;
+            }
+            console.log(response)
+            // });
         } catch (error: any) {
             loading.value = false;
             showError.value = true

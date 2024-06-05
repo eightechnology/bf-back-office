@@ -267,7 +267,7 @@
                                         <NuxtLink class="dropdown-item text-dark" to="/company/list"><span
                                                 class="mb-0 d-inline-block me-1"><i class="ti ti-home"></i></span>
                                             Changer d'organisation</NuxtLink>
-                                        <a class="dropdown-item text-dark" href="profile.html"><span
+                                        <a class="dropdown-item text-dark" @click="onEditCompany()" style="cursor: pointer;"><span
                                                 class="mb-0 d-inline-block me-1"><i class="ti ti-settings"></i></span>
                                             Modifier</a>
                                         <div class="dropdown-divider border-top"></div>
@@ -296,6 +296,7 @@
 </template>
 <script setup>
 const { $locally } = useNuxtApp();
+const router = useRouter();
 
 const authStore = useAuthStore();
 const companyStore = useCompagnyStore();
@@ -322,6 +323,10 @@ const moveToggle = () => {
         console.log(t)
         isToogle.value = true
     }
+}
+
+const onEditCompany = () => {
+    router.push('/company/edit')
 }
 
 const toggleMobile = () => {

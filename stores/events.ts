@@ -5,7 +5,8 @@ axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 axios.interceptors.request.use(
     (config) => {
-        const token = sessionStorage.getItem('token')
+        const { $locally } = useNuxtApp();
+        const token = $locally.getItem('token');
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
@@ -22,12 +23,14 @@ export const useEventStore = defineStore('events', {
         loading: false,
         eventDetail: {},
         events: [],
+        selectedEvent: {},
         compangySlug: sessionStorage.getItem('companySlug')
     }),
 
     getters: {
         getEventDetail(state) { return state.eventDetail; },
-        getEventList(state) { return state.events; }
+        getEventList(state) { return state.events; },
+        getSelectedEvent(state) { return state.selectedEvent; }
     },
 
     actions: {
@@ -72,7 +75,28 @@ export const useEventStore = defineStore('events', {
             } catch (error: any) {
                 this.loading = false;
             }
+        },
+
+        async onUpdateEvent(formData: any, slug: string) {
+            try {
+                this.loading = true;
+                // let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
+                    let response = await axios.post('/api/agencies/' + this.compangySlug + '/events/' + slug, formData);
+                    if (response.status === 201) {
+                        this.loading = false;
+                    }
+                    console.log(response)
+                // });
+            } catch (error: any) {
+                this.loading = false;
+            }
+        },
+
+        onSetEventValue(event: any) {
+            this.selectedEvent = event;
         }
+
+
 
     }
 })

@@ -247,7 +247,8 @@ const onSaveEvent = async () => {
     dataForm.append('country', eventForm.country);
     dataForm.append('is_public', eventForm.is_public);
     formData.value = dataForm;
-    await eventStore.onCreateEvent(formData.value)
+    await eventStore.onCreateEvent(formData.value);
+    //  eventStore.onCreateEvent(formData.value)
 }
 
 </script>

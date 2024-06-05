@@ -298,6 +298,7 @@ const onAddTicket = () => {
 }
 
 const onEditEvent = () => {
+    eventStore.onSetEventValue(eventDetail.value)
     router.push('/events/edit')
 }
 
