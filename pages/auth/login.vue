@@ -5,6 +5,10 @@
         </a>
         <h5 class="mb-3 text-center">Rejoignez nous</h5>
 
+        <div v-if="showError">
+            <ToolsError :errorMessage="errorMessage" />
+        </div>
+
         <form @submit.prevent="toLogin">
             <div class="row mb-2">
                 <div class="col-lg-12">
@@ -134,6 +138,9 @@ const authStore = useAuthStore();
 const login_token = computed(() => authStore.getLoginToken);
 const loading = computed(() => authStore.getLoading);
 const showConfirmCode = computed(() => authStore.getShowConfirmCode);
+const showError = computed(() => authStore.getShowError);
+const errorMessage = computed(() => authStore.getErrorMessage);
+
 
 const loginForm = reactive({
     email: "",

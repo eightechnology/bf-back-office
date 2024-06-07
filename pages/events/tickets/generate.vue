@@ -4,6 +4,10 @@
             <h5 class="mb-0">Génération de billets (1)</h5>
 
             <nav aria-label="breadcrumb" class="d-inline-block mt-2 mt-sm-0">
+                <button class="btn btn-danger mx-2" @click="goBackEvent()">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    retour
+                </button>
                 <button class="btn btn-primary" @click="openModal()">
                     <i class="fas fa-plus"></i>
                     Ajouter
@@ -69,11 +73,17 @@
     </div>
 </template>
 <script setup>
+const router = useRouter();
 var myModal = ref(null);
 
 onMounted(() => {
     myModal.value = new bootstrap.Modal(document.getElementById('staticBackdrop'), options);
 })
+
+const goBackEvent = () => {
+    router.back();
+}
+
 function openModal() {
     myModal.value.show()
 }

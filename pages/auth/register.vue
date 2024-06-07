@@ -1,10 +1,15 @@
 <template>
     <div>
+        <a href="index.html">
+            <img src="/images/logobf.png" class="d-block mx-auto" alt="" height="60">
+        </a>
+        <h5 class="mb-3 text-center">Lancez-vous</h5>
+
+        <div v-if="showError">
+            <ToolsError :errorMessage="errorMessage" />
+        </div>
+
         <form @submit.prevent="register">
-            <a href="index.html">
-                <img src="/images/logobf.png" class="d-block mx-auto" alt="" height="60">
-            </a>
-            <h5 class="mb-3 text-center">Lancez-vous</h5>
 
             <div class="row">
                 <div class="col-lg-12">
@@ -186,6 +191,8 @@ const login_token = computed(() => authStore.getLoginToken);
 const loading = computed(() => authStore.getLoading);
 const showConfirmCode = computed(() => authStore.getShowConfirmCode);
 const companies = computed(() => companyStore.getCompagnies);
+const showError = computed(() => authStore.getShowError);
+const errorMessage = computed(() => authStore.getErrorMessage);
 
 const registerForm = reactive({
     name: "",

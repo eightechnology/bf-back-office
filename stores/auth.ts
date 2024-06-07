@@ -25,6 +25,10 @@ export const useAuthStore = defineStore('auth', {
         loading: false,
         showConfirmCode: false,
         login_token: "",
+        errorMessage: "",
+        showError: false,
+        showSuccess: false,
+        errors: [],
 
     }),
 
@@ -32,12 +36,16 @@ export const useAuthStore = defineStore('auth', {
         getLoginToken(state) { return state.login_token; },
         getLoading(state) { return state.loading; },
         getShowConfirmCode(state) { return state.showConfirmCode; },
+        getShowSuccess(state) { return state.showSuccess; },
+        getShowError(state) { return state.showError; },
+        getErrorMessage(state) { return state.errorMessage; }
     },
 
     actions: {
         async onLogin(formData: any) {
             try {
                 this.loading
+                this.showError = false;
                 let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
                     let response = await axios.post('/w-login', formData);
                     if (response.status === 200) {
@@ -57,13 +65,24 @@ export const useAuthStore = defineStore('auth', {
                 });
             } catch (error: any) {
                 this.loading = false;
+                this.showError = true;
+                if (error.response.status == 401 || error.response.status == 403 || error.response.status === 422) {
+                    this.errorMessage = error.response.data.message;
+                    if (error.response.data.errors) {
+                        this.errors = error.response.data.errors;
+                    }
+                }
+                else {
+                    this.errorMessage = 'Erreur de traitement, vueillez réessayer plus tard.';
+                }
             }
         },
 
         async onRegister(formData: any) {
             
             try {
-                this.loading
+                this.loading;
+                this.showError = false;
                 let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
                     let response = await axios.post('/register', formData);
                     if (response.status === 200) {
@@ -84,12 +103,23 @@ export const useAuthStore = defineStore('auth', {
                 });
             } catch (error: any) {
                 this.loading = false;
+                this.showError = true;
+                if (error.response.status == 401 || error.response.status == 403 || error.response.status === 422) {
+                    this.errorMessage = error.response.data.message;
+                    if (error.response.data.errors) {
+                        this.errors = error.response.data.errors;
+                    }
+                }
+                else {
+                    this.errorMessage = 'Erreur de traitement, vueillez réessayer plus tard.';
+                }
             }
         },
 
         async onConfirmAuth(formData: any) {
             try {
-                this.loading
+                this.loading;
+                this.showError = false;
                 let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
                     let response = await axios.post('/w-login-confirm', formData);
                     if (response.status === 200) {
@@ -118,12 +148,23 @@ export const useAuthStore = defineStore('auth', {
                 });
             } catch (error: any) {
                 this.loading = false;
+                this.showError = true;
+                if (error.response.status == 401 || error.response.status == 403 || error.response.status === 422) {
+                    this.errorMessage = error.response.data.message;
+                    if (error.response.data.errors) {
+                        this.errors = error.response.data.errors;
+                    }
+                }
+                else {
+                    this.errorMessage = 'Erreur de traitement, vueillez réessayer plus tard.';
+                }
             }
         },
 
         async onLogout() {
             try {
-                this.loading
+                this.loading;
+                this.showError = false;
                 let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
                     let response = await axios.post('/logout');
                     if (response.status === 201) {
@@ -134,6 +175,16 @@ export const useAuthStore = defineStore('auth', {
                 });
             } catch (error: any) {
                 this.loading = false;
+                this.showError = true;
+                if (error.response.status == 401 || error.response.status == 403 || error.response.status === 422) {
+                    this.errorMessage = error.response.data.message;
+                    if (error.response.data.errors) {
+                        this.errors = error.response.data.errors;
+                    }
+                }
+                else {
+                    this.errorMessage = 'Erreur de traitement, vueillez réessayer plus tard.';
+                }
             }
         },
     }
