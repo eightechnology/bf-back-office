@@ -73,7 +73,5 @@ export const useTicketStore = defineStore('ticket', {
             this.endsAt = eventDetail.dates[0].ends_at;
             this.dateEventSlug = eventDetail.dates[0].slug;
         }
-
-
     }
 })

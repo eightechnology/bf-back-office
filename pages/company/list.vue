@@ -1,15 +1,15 @@
 <template>
     <div>
-        <a href="index.html">
+        <NuxtLink to="/">
             <img src="/images/logobf.png" class="d-block mx-auto" alt="" height="70">
-        </a>
+        </NuxtLink>
         <h5 class="mb-3 text-center">Séléctionner votre structure</h5>
 
         <div class="d-flex flex-row justify-content-center">
             <div class="p-6 mx-2" v-for="(company, index) in companies" :key="index">
                 <div class="card" style="width: 10rem;">
                     <a @click="onSelectCompany(company)" style="cursor: pointer;">
-                        <img :src="company.logo"  class="card-img-top" :alt="company.name">
+                        <img :src="company.logo"  class="card-img-top" :alt="company.name" style="height: 100px;">
                     </a>
                 </div>
             </div>

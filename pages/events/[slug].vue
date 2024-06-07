@@ -253,14 +253,14 @@
                 <div class="widget-grid overflow-hidden mt-3">
                     <div class="col-md-12">
                         <div class="send d-grid">
-                            <button type="submit" class="btn btn-primary" @click="onAddTicket()"><i
+                            <button class="btn btn-primary" @click="onAddTicket()"><i
                                     class="fa-solid fa-ticket"></i> Ajouter un
                                 ticket</button>
                         </div>
                     </div>
                     <div class="col-md-12 my-2">
                         <div class="send d-grid">
-                            <button type="submit" class="btn btn-soft-success outline"><i
+                            <button @click="onOpenGenerate()" class="btn btn-soft-success outline"><i
                                     class="fa-solid fa-ticket"></i> Générer des tickets</button>
                         </div>
                     </div>
@@ -300,6 +300,11 @@ const onAddTicket = () => {
 const onEditEvent = () => {
     eventStore.onSetEventValue(eventDetail.value)
     router.push('/events/edit')
+}
+
+const onOpenGenerate = () => {
+    eventStore.onSetEventValue(eventDetail.value)
+    router.push('/events/tickets/generate')
 }
 
 
