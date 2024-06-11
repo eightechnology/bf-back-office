@@ -37,8 +37,8 @@
                                                 événements</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <a href="javascript:void(0)"><i
-                                                    class="ti ti-circle-check me-2"></i>Validation des billets</a>
+                                            <NuxtLink to="/validation"><i
+                                                    class="ti ti-circle-check me-2"></i>Validation des billets</NuxtLink>
                                         </li>
                                         <li class="">
                                             <NuxtLink to="/collectes/create"><i class="ti ti-share me-2"></i>Publier une
@@ -49,12 +49,14 @@
                                                 cagnottes</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <a href="javascript:void(0)"><i class="ti ti-cash me-2"></i>Comment ça
-                                                marche</a>
+                                            <NuxtLink to="/conditions"><i class="ti ti-cash me-2"></i>Conditions d'utilisations</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <a href="javascript:void(0)"><i
-                                                    class="ti ti-address-book me-2"></i>Contactez-nous</a>
+                                            <NuxtLink to="/tarifications"><i class="ti ti-cash me-2"></i>Tarifications </NuxtLink>
+                                        </li>
+                                        <li class="">
+                                            <NuxtLink to="/contact"><i
+                                                    class="ti ti-address-book me-2"></i>Contactez-nous</NuxtLink>
                                         </li>
                                         <li class="">
                                             <a href="javascript:void(0)"><i class="ti ti-globe me-2"></i>Aller sur le
@@ -90,6 +92,9 @@
                                         <li class="">
                                             <a href="javascript:void(0)" @click="moveToggle"><i class="ti ti-cash me-2"></i>Comment ça
                                                 marche</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="javascript:void(0)" @click="moveToggle"><i class="ti ti-cash me-2"></i>Tarification</a>
                                         </li>
                                         <li class="">
                                             <a href="javascript:void(0)" @click="moveToggle"><i
