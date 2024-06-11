@@ -156,7 +156,7 @@
                         <div class="mb-3">
                             <label class="form-label">Description</label>
                             <div class="form-icon position-relative">
-                                <textarea name="comments" id="comments" rows="10" class="form-control ps-3"
+                                <textarea name="comments" id="comments" rows="14" class="form-control ps-3"
                                     placeholder="Description :" v-model="eventForm.description"
                                     :class="v$.description.$error ? 'invalid' : ''" @input="v$.description.$touch()">
                                 </textarea>

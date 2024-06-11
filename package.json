@@ -18,7 +18,8 @@
     "qrcode-vue3": "^1.6.8",
     "sweetalert2": "^11.11.0",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-circle-progress": "^1.0.7"
   },
   "devDependencies": {
     "nuxt-icon": "^0.6.10"

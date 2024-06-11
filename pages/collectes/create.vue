@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- <h1>Ajouter un événement</h1> -->
-        <div class="alert bg-soft-primary fw-medium" role="alert"> <i class="uil uil-info-circle fs-5 align-middle me-1"></i> Les champs avec (<span class="text-danger">*</span>) sont obligatoires  </div>
+        <div class="alert bg-soft-primary fw-medium text-center" role="alert"> <i class="uil uil-info-circle fs-5 align-middle me-1"></i> Les champs avec (<span class="text-danger">*</span>) sont obligatoires  </div>
 
         <div class="row">
             <div class="col-md-6 col-lg-6">
@@ -31,17 +31,9 @@
 
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label for="phone" class="form-label">Téléphone (<span
+                                    <label for="phone" class="form-label">Bénéficiaire (<span
                                             class="text-danger">*</span>)</label>
-                                    <input type="tel" class="form-control" id="phone" placeholder="Numéro de téléphone">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="address" class="form-label">Lieu de l'événement (<span
-                                            class="text-danger">*</span>)</label>
-                                    <input type="text" class="form-control" id="address" placeholder="Lieu de l'événement">
+                                    <input type="text" class="form-control" id="phone" placeholder="Bénéficiaire">
                                 </div>
                             </div>
 
@@ -63,22 +55,6 @@
 
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label for="time" class="form-label">Heure début (<span
-                                            class="text-danger">*</span>)</label>
-                                    <input type="time" class="form-control" id="time" placeholder="Heure début">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="time" class="form-label">Heure fin (<span
-                                            class="text-danger">*</span>)</label>
-                                    <input type="time" class="form-control" id="time" placeholder="Heure fin">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="mb-3">
                                     <label for="image" class="form-label">Photo de couverture (<span
                                             class="text-danger">*</span>)</label>
                                     <input type="file" class="form-control" id="image" placeholder="Photo de couverture">
@@ -91,8 +67,6 @@
                                     <input type="text" class="form-control" id="link" placeholder="Lien youtube">
                                 </div>
                             </div>
-
-
                         </div>
                     </form>
                 </div>
@@ -105,7 +79,7 @@
                         <div class="mb-3">
                             <label class="form-label">Description</label>
                             <div class="form-icon position-relative">
-                                <textarea name="comments" id="comments" rows="10" class="form-control ps-3"
+                                <textarea name="comments" id="comments" rows="12" class="form-control ps-3"
                                     placeholder="Description :"></textarea>
                             </div>
                         </div>
