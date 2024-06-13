@@ -1,17 +1,17 @@
 <template>
     <div>
         <!-- <h1>Ajouter un événement</h1> -->
-        <div class="alert bg-soft-primary fw-medium text-center" role="alert"> <i
+        <!-- <div class="alert bg-soft-primary fw-medium text-center" role="alert"> <i
                 class="uil uil-info-circle fs-5 align-middle me-1"></i> Les champs avec (<span
-                class="text-danger">*</span>) sont obligatoires </div>
+                class="text-danger">*</span>) sont obligatoires </div> -->
 
         <form @submit.prevent="onSaveEvent" enctype="multipart/form-data">
             <div class="row">
-                <div class="col-md-6 col-lg-6">
+                <div class="col-md-6 col-lg-6 col-12">
                     <div class="card border-0 rounded shadow p-4">
                         <h5 class="mb-0">Planification du contenu</h5>
                         <div class="row mt-4">
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Titre (<span
                                             class="text-danger">*</span>)</label>
@@ -24,7 +24,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6" v-if="categories">
+                            <div class="col-lg-6 col-md-6 col-12" v-if="categories">
                                 <div class="mb-3">
                                     <label for="category" class="form-label">Catégorie (<span
                                             class="text-danger">*</span>)</label>
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="phone" class="form-label">Téléphone (<span
                                             class="text-danger">*</span>)</label>
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="address" class="form-label">Lieu de l'événement (<span
                                             class="text-danger">*</span>)</label>
@@ -67,51 +67,37 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="date" class="form-label">Date début (<span
                                             class="text-danger">*</span>)</label>
                                     <!-- <input type="date" class="form-control" v-model="eventForm.starts_at" id="date"
                                         placeholder="Date début" :class="v$.starts_at.$error ? 'invalid' : ''"
                                         @input="v$.starts_at.$touch()"> -->
-                                    <VueDatePicker v-model="eventForm.starts_at"   select-text="choisir" cancel-text="Femer" format="dd/MM/yyyy HH:mm" :format-locale="fr" />
+                                    <VueDatePicker v-model="eventForm.starts_at" select-text="choisir"
+                                        cancel-text="Femer" format="dd/MM/yyyy HH:mm" :format-locale="fr" />
                                     <div v-if="v$.starts_at.$error" class="text-danger">
                                         <p>La date début est obligatoire</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="date" class="form-label">Date fin (<span
                                             class="text-danger">*</span>)</label>
                                     <!-- <input type="date" class="form-control" id="date" v-model="eventForm.ends_at"
                                         placeholder="Date fin" :class="v$.ends_at.$error ? 'invalid' : ''"
                                         @input="v$.ends_at.$touch()"> -->
-                                        <VueDatePicker v-model="eventForm.ends_at"   select-text="choisir" cancel-text="Femer" format="dd/MM/yyyy HH:mm" :format-locale="fr" />
+                                    <VueDatePicker v-model="eventForm.ends_at" select-text="choisir" cancel-text="Femer"
+                                        format="dd/MM/yyyy HH:mm" :format-locale="fr" />
                                     <div v-if="v$.ends_at.$error" class="text-danger">
                                         <p>La date fin est obligatoire</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="time" class="form-label">Heure début (<span
-                                            class="text-danger">*</span>)</label>
-                                    <input type="time" class="form-control" id="time" placeholder="Heure début">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="time" class="form-label">Heure fin (<span
-                                            class="text-danger">*</span>)</label>
-                                    <input type="time" class="form-control" id="time" placeholder="Heure fin">
-                                </div>
-                            </div> -->
-
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="image" class="form-label">Photo de couverture (<span
                                             class="text-danger">*</span>)</label>
@@ -120,7 +106,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="link" class="form-label">Lien youtube</label>
                                     <input type="text" class="form-control" id="link" placeholder="Lien youtube"
@@ -131,7 +117,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <div class="form-check mb-0">
                                         <input class="form-check-input" checked type="radio" name="flexRadioDefault"
@@ -148,11 +134,46 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Privé
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"
+                                        checked>
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        public
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <h5 class="mb-2">Coordonnées Google Map</h5>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="mb-3">
+                                    <label for="date" class="form-label">Latitude</label>
+                                    <input type="text" class="form-control " id="title" placeholder="2128300002">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="mb-3">
+                                    <label for="date" class="form-label">Longitude</label>
+                                    <input type="text" class="form-control " id="title" placeholder="212830032">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-lg-6">
+                <div class="col-md-6 col-lg-6 col-12">
                     <div class="card border-0 rounded shadow p-4">
                         <h5 class="mb-0">Rédaction du contenu</h5>
                         <div class="mb-3">

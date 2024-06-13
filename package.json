@@ -20,7 +20,8 @@
     "sweetalert2": "^11.11.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
-    "vue3-circle-progress": "^1.0.7"
+    "vue3-circle-progress": "^1.0.7",
+    "vue3-google-map": "^0.20.0"
   },
   "devDependencies": {
     "nuxt-icon": "^0.6.10"
