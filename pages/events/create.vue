@@ -71,9 +71,10 @@
                                 <div class="mb-3">
                                     <label for="date" class="form-label">Date début (<span
                                             class="text-danger">*</span>)</label>
-                                    <input type="date" class="form-control" v-model="eventForm.starts_at" id="date"
+                                    <!-- <input type="date" class="form-control" v-model="eventForm.starts_at" id="date"
                                         placeholder="Date début" :class="v$.starts_at.$error ? 'invalid' : ''"
-                                        @input="v$.starts_at.$touch()">
+                                        @input="v$.starts_at.$touch()"> -->
+                                    <VueDatePicker v-model="eventForm.starts_at"   select-text="choisir" cancel-text="Femer" format="dd/MM/yyyy HH:mm" :format-locale="fr" />
                                     <div v-if="v$.starts_at.$error" class="text-danger">
                                         <p>La date début est obligatoire</p>
                                     </div>
@@ -84,9 +85,10 @@
                                 <div class="mb-3">
                                     <label for="date" class="form-label">Date fin (<span
                                             class="text-danger">*</span>)</label>
-                                    <input type="date" class="form-control" id="date" v-model="eventForm.ends_at"
+                                    <!-- <input type="date" class="form-control" id="date" v-model="eventForm.ends_at"
                                         placeholder="Date fin" :class="v$.ends_at.$error ? 'invalid' : ''"
-                                        @input="v$.ends_at.$touch()">
+                                        @input="v$.ends_at.$touch()"> -->
+                                        <VueDatePicker v-model="eventForm.ends_at"   select-text="choisir" cancel-text="Femer" format="dd/MM/yyyy HH:mm" :format-locale="fr" />
                                     <div v-if="v$.ends_at.$error" class="text-danger">
                                         <p>La date fin est obligatoire</p>
                                     </div>
@@ -179,7 +181,10 @@
 <script setup>
 import useEvents from '~/services/events';
 import useVuelidate from '@vuelidate/core'
-import { required, email, minLength, helpers, sameAs } from '@vuelidate/validators'
+import { required, email, minLength, helpers, sameAs } from '@vuelidate/validators';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+import { fr } from 'date-fns/locale'
 // import { useCategoryStore } from '~/stores/category';
 
 const eventStore = useEventStore();
@@ -190,8 +195,8 @@ const eventForm = reactive({
     type: "payant",
     address: "",
     description: "",
-    starts_at: "",
-    ends_at: "",
+    starts_at: new Date(),
+    ends_at: new Date(),
     image: "",
     plan: "",
     desc_video: "",

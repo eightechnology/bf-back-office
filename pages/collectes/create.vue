@@ -9,14 +9,14 @@
                     <h5 class="mb-0">Planification du contenu</h5>
                     <form>
                         <div class="row mt-4">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12 col-md-12 col-12">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Titre (<span class="text-danger">*</span>)</label>
-                                    <input type="text" class="form-control" id="title" placeholder="Titre de l'événement">
+                                    <input type="text" class="form-control" id="title" placeholder="Titre de la collecte de fonds">
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="category" class="form-label">Catégorie (<span
                                             class="text-danger">*</span>)</label>
@@ -29,7 +29,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="phone" class="form-label">Bénéficiaire (<span
                                             class="text-danger">*</span>)</label>
@@ -37,7 +37,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="date" class="form-label">Date début (<span
                                             class="text-danger">*</span>)</label>
@@ -45,7 +45,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="date" class="form-label">Date fin (<span
                                             class="text-danger">*</span>)</label>
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="image" class="form-label">Photo de couverture (<span
                                             class="text-danger">*</span>)</label>
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="link" class="form-label">Lien youtube</label>
                                     <input type="text" class="form-control" id="link" placeholder="Lien youtube">
@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-6">
+            <div class="col-lg-6 col-md-6 col-12">
                 <div class="card border-0 rounded shadow p-4">
                     <h5 class="mb-0">Rédaction du contenu</h5>
                     <form>

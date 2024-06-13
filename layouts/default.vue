@@ -54,8 +54,8 @@
                                             <NuxtLink to="/contact"><i class="fa-solid fa-envelope me-2"></i>Contactez-nous</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <a href="javascript:void(0)"><i class="fa-solid fa-globe me-2"></i>Aller sur le
-                                                site</a>
+                                            <NuxtLink to="/"><i class="fa-solid fa-globe me-2"></i>Aller sur le
+                                                site</NuxtLink>
                                         </li>
                                     </ul>
 
@@ -114,15 +114,6 @@
                     <div class="simplebar-scrollbar" style="height: 0px; display: none;"></div>
                 </div>
             </div>
-            <!-- Sidebar Footer -->
-            <ul class="sidebar-footer list-unstyled mb-0">
-                <li class="list-inline-item mb-0">
-                    <a href="https://1.envato.market/landrick" target="_blank" class="btn btn-icon btn-soft-light"><i
-                            class="ti ti-shopping-cart"></i></a> <small class="text-white fw-medium ms-1">Aller sur le
-                        site</small>
-                </li>
-            </ul>
-            <!-- Sidebar Footer -->
         </nav>
 
         
