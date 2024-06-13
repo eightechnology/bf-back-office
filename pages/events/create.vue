@@ -47,7 +47,7 @@
                                             class="text-danger">*</span>)</label>
                                     <input type="tel" class="form-control" id="phone" placeholder="Numéro de téléphone"
                                         :class="v$.phone.$error ? 'invalid' : ''" @input="v$.phone.$touch()"
-                                        v-model="eventForm.phone">
+                                        v-model="eventForm.phone" maxlength="9">
                                     <div class="text-danger" v-if="v$.phone.$error">
                                         {{ v$.phone.$errors[0].$message }}
                                     </div>

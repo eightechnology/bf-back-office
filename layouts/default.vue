@@ -26,40 +26,35 @@
 
                                     <ul class="sidebar-menu d-none d-lg-block d-md-block">
                                         <li class="active">
-                                            <NuxtLink to="/"><i class="ti ti-home me-2"></i>Dashboard</NuxtLink>
+                                            <NuxtLink to="/"><i class="fa-solid fa-house me-2"></i>Dashboard</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <NuxtLink to="/events/create"><i class="ti ti-share me-2"></i>Publier un
+                                            <NuxtLink to="/events/create"><i class="fa-solid fa-share-nodes me-2"></i>Publier un
                                                 événement</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <NuxtLink to="/events/list"><i class="ti ti-list me-2"></i>Liste des
-                                                événements</NuxtLink>
+                                            <NuxtLink to="/events/list"><i class="fa-solid fa-list-ul me-2"></i>Liste des événements</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <NuxtLink to="/validation"><i
-                                                    class="ti ti-circle-check me-2"></i>Validation des billets</NuxtLink>
+                                            <NuxtLink to="/validation"><i class="fa-solid fa-mobile me-2"></i>Validation des billets</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <NuxtLink to="/collectes/create"><i class="ti ti-share me-2"></i>Publier une
-                                                cagnotte</NuxtLink>
+                                            <NuxtLink to="/collectes/create"><i class="fa-solid fa-hand-holding-heart me-2"></i>Publier une cagnotte</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <NuxtLink to="/collectes/list"><i class="ti ti-gift me-2"></i>Liste des
-                                                cagnottes</NuxtLink>
+                                            <NuxtLink to="/collectes/list"><i class="fa-solid fa-gift me-2"></i>Liste des cagnottes</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <NuxtLink to="/conditions"><i class="ti ti-cash me-2"></i>Conditions d'utilisations</NuxtLink>
+                                            <NuxtLink to="/conditions"><i class="fa-solid fa-question me-2"></i>Conditions d'utilisations</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <NuxtLink to="/tarifications"><i class="ti ti-cash me-2"></i>Tarifications </NuxtLink>
+                                            <NuxtLink to="/tarifications"><i class="fa-solid fa-money-check-dollar me-2"></i>Tarifications </NuxtLink>
                                         </li>
                                         <li class="">
-                                            <NuxtLink to="/contact"><i
-                                                    class="ti ti-address-book me-2"></i>Contactez-nous</NuxtLink>
+                                            <NuxtLink to="/contact"><i class="fa-solid fa-envelope me-2"></i>Contactez-nous</NuxtLink>
                                         </li>
                                         <li class="">
-                                            <a href="javascript:void(0)"><i class="ti ti-globe me-2"></i>Aller sur le
+                                            <a href="javascript:void(0)"><i class="fa-solid fa-globe me-2"></i>Aller sur le
                                                 site</a>
                                         </li>
                                     </ul>

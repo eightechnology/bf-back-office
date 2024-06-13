@@ -9,7 +9,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Evénement populaire</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Formation en pyton</h6>
-                            <p class="card-text text-center my-5">
+                            <p class="card-text text-center my-4">
                                 <span style="font-size: 60px; font-weight: bold;">86 %</span>
                             </p>
                         </div>
@@ -32,7 +32,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Evénement plus rentable</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Formation en pyton</h6>
-                            <p class="card-text text-center my-5">
+                            <p class="card-text text-center my-4">
                                 <span style="font-size: 60px; font-weight: bold;">36 %</span>
                             </p>
                         </div>
@@ -55,7 +55,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Evénement moins populaire</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Formation en pyton</h6>
-                            <p class="card-text text-center my-5">
+                            <p class="card-text text-center my-4">
                                 <span style="font-size: 60px; font-weight: bold;">2 %</span>
                             </p>
                         </div>
@@ -83,7 +83,7 @@
                     <div class="card border-success">
                         <div class="card-body">
                             <h5 class="card-title"><i class="fa-solid fa-users"></i> Participants</h5>
-                            <p class="card-text text-center my-5">
+                            <p class="card-text text-center my-4">
                                 <span style="font-size: 60px; font-weight: bold;">130</span>
                             </p>
                         </div>
@@ -102,7 +102,7 @@
                     <div class="card border-success">
                         <div class="card-body">
                             <h5 class="card-title"><i class="fa-solid fa-eye"></i> Nombre de vues</h5>
-                            <p class="card-text text-center my-5 text-success">
+                            <p class="card-text text-center my-4 text-success">
                                 <span style="font-size: 60px; font-weight: bold;">205</span>
                             </p>
                         </div>

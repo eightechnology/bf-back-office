@@ -60,7 +60,7 @@ export const useAuthStore = defineStore('auth', {
                             icon: "success",
                             showConfirmButton: false,
                             timer: 2000
-                        })
+                        });
                     }
                 });
             } catch (error: any) {

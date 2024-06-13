@@ -21,14 +21,17 @@ axios.interceptors.request.use(
 export const useCompagnyStore = defineStore('compagny', {
     state: () => ({
         loading: false,
+        isSend: false,
         company: {},
         compagnies: [],
-        
+
     }),
 
     getters: {
         getCompagnies(state) { return state.compagnies },
-        getCompany(state) { return state.company; }
+        getCompany(state) { return state.company; },
+        getIsSend(state) { return state.isSend; },
+        getLoading(state) { return state.loading; },
     },
 
     actions: {
@@ -65,7 +68,7 @@ export const useCompagnyStore = defineStore('compagny', {
 
         async onCreateCompangy(formData: any) {
             try {
-                this.loading
+                this.loading = true;
                 let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
                     let response = await axios.post('/api/agencies/companies', formData);
                     if (response.status === 201) {
@@ -75,6 +78,27 @@ export const useCompagnyStore = defineStore('compagny', {
                 });
             } catch (error: any) {
                 this.loading = false;
+            }
+        },
+
+        async onSendMail(formData: any) {
+            try {
+                this.loading = true;
+                this.isSend = false
+                let response = await axios.post('/contact-admin', formData);
+                if (response.status === 201) {
+                    this.loading = false;
+                    this.isSend = true;
+                    const { $swal } = useNuxtApp();
+                    $swal.fire({
+                        title: "Bravo!",
+                        text: "Merci de nous avoir contacté, notre équipe vous répondra dès que possible.",
+                        icon: "success",
+                    });
+                }
+            } catch (error: any) {
+                this.loading = false;
+                this.isSend = false
             }
         }
     }
