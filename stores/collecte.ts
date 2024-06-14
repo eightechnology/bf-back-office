@@ -59,6 +59,6 @@ export const useCollecteStore = defineStore('collecte', {
             } catch (error: any) {
                 this.loading = false;
             }
-        },
+        },gi
     }
 })
