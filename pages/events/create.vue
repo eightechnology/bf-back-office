@@ -184,6 +184,9 @@
                                     :class="v$.description.$error ? 'invalid' : ''" @input="v$.description.$touch()">
                                 </textarea>
                             </div>
+                            <div v-if="v$.description.$error" class="text-danger">
+                                <p>La déscription est obligatoire</p>
+                            </div>
                         </div>
                     </div>
                     <div class="mb-0 mt-4 text-end">
