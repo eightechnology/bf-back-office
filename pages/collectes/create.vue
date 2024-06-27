@@ -73,8 +73,9 @@
                                 <div class="mb-3">
                                     <label for="date" class="form-label">Date fin (<span
                                             class="text-danger">*</span>)</label>
-                                    <VueDatePicker v-model="collecteForm.ends_at" select-text="choisir"
-                                        cancel-text="Femer" format="dd/MM/yyyy HH:mm" :format-locale="fr" />
+                                    <!-- <VueDatePicker v-model="collecteForm.ends_at" select-text="choisir"
+                                        cancel-text="Femer" format="dd/MM/yyyy" :format-locale="fr" /> -->
+                                    <input type="date" v-model="collecteForm.ends_at" class="form-control" id="date">
                                     <div v-if="v$.ends_at.$error" class="text-danger">
                                         <p>La date fin est obligatoire</p>
                                     </div>
@@ -107,7 +108,7 @@
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <div class="form-check mb-0">
                                         <input class="form-check-input" checked type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault1" v-model="collecteForm.is_public" value="false">
+                                            id="flexRadioDefault1" v-model="collecteForm.is_public" :value="false">
                                         <label class="form-check-label" for="flexRadioDefault1">privée</label>
                                     </div>
                                 </div>
@@ -115,7 +116,7 @@
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <div class="form-check mb-0">
                                         <input class="form-check-input" checked type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault2" v-model="collecteForm.is_public" value="true">
+                                            id="flexRadioDefault2" v-model="collecteForm.is_public" :value="true">
                                         <label class="form-check-label" for="flexRadioDefault2">publique</label>
                                     </div>
                                 </div>
@@ -211,10 +212,11 @@ const onSaveCollecte = async () => {
     dataForm.append('description', collecteForm.description);
     dataForm.append('ends_at', collecteForm.ends_at);
     dataForm.append('is_public', collecteForm.is_public);
+    dataForm.append('category', collecteForm.category);
     dataForm.append('country', collecteForm.country);
     dataForm.append('image', collecteForm.image);
     dataForm.append('desc_video', collecteForm.desc_video);
-    console.log(dataForm);
+    console.log(collecteForm);
     await collecteStore.onCreateCollecte(dataForm);
 }
 </script>

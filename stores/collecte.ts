@@ -48,6 +48,20 @@ export const useCollecteStore = defineStore('collecte', {
             }
         },
 
+        async fetchCollecteDetail(slug: string) {
+            try {
+                this.loading = true;
+                let response = await axios.get("/api/agencies/" + this.compangySlug + "/collectes/" + slug)
+                if (response.status === 200) {
+                    this.loading = false;
+                    this.collecteDetail = response.data.data
+                    console.log(response.data.data)
+                }
+            } catch (error) {
+                this.loading = false;
+            }
+        },
+
         async onCreateCollecte(formData: any) {
             try {
                 this.loading = true;
@@ -59,6 +73,6 @@ export const useCollecteStore = defineStore('collecte', {
             } catch (error: any) {
                 this.loading = false;
             }
-        },gi
+        },
     }
 })

@@ -1,10 +1,10 @@
 <template>
     <div class="row">
         <!-- BLog Start -->
-        <div class="col-lg-9 col-md-6 mt-4">
+        <div class="col-lg-9 col-md-6 mt-4" v-if="collecteDetail">
             <div class="card blog blog-primary blog-detail border-0 shadow rounded">
-                <img src="assets/images/blog/bg1.jpg" class="img-fluid rounded-top" alt="">
-                <h3 class="m-2">Test</h3>
+                <img :src="collecteDetail.image" class="img-fluid rounded-top" :alt="collecteDetail.title">
+                <h3 class="m-2">{{ collecteDetail.title }}</h3>
 
             </div>
 
@@ -193,5 +193,13 @@
 import "vue3-circle-progress/dist/circle-progress.css";
 import CircleProgress from "vue3-circle-progress";
 
+const route = useRoute();
+const collecteStore = useCollecteStore();
+const collecteDetail = computed(() => collecteStore.getCollecteDetail);
+
 const company = computed(() => JSON.parse(sessionStorage.getItem('company')));
+
+onMounted(async () => {
+    await collecteStore.fetchCollecteDetail(route.params.slug)
+})
 </script>
