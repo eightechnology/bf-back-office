@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-axios.defaults.baseURL = "http://localhost:8000"
+axios.defaults.baseURL = process.env.VUE_APP_DEV_URL;
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 axios.interceptors.request.use(

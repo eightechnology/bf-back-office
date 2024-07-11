@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useRouter } from 'vue-router';
-axios.defaults.baseURL = "http://localhost:8000"
+axios.defaults.baseURL = useRuntimeConfig().public.vueAppDevUrl;
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 axios.interceptors.request.use(

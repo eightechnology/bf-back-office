@@ -272,10 +272,10 @@
             <div class="card border-0 rounded shadow p-4 widget mt-4">
                 <h5 class="mb-0">Voir la localisation</h5>
                 <div class="widget-grid overflow-hidden mt-3">
-                    <GoogleMap api-key="AIzaSyAsYBiXWK1lNf4yWml6k4xU3ya1EAS-LQ0" style="width: 100%; height: 200px" :center="center"
+                    <!-- <GoogleMap api-key="AIzaSyAsYBiXWK1lNf4yWml6k4xU3ya1EAS-LQ0" style="width: 100%; height: 200px" :center="center"
                         :zoom="15">
                         <Marker :options="{ position: center }" />
-                    </GoogleMap>
+                    </GoogleMap> -->
                 </div>
             </div>
         </div>
@@ -284,7 +284,7 @@
 <script setup>
 import { useTicketStore } from '~/stores/ticket';
 import QRCodeVue3 from 'qrcode-vue3';
-import { GoogleMap, Marker } from 'vue3-google-map'
+// import { GoogleMap, Marker } from 'vue3-google-map'
 
 const { $locally } = useNuxtApp();
 const route = useRoute();
@@ -294,7 +294,7 @@ const ticketStore = useTicketStore();
 const eventDetail = computed(() => eventStore.getEventDetail);
 const company = computed(() => JSON.parse(sessionStorage.getItem('company')));
 const tickets = ref([]);
-const center = { lat: 40.689247, lng: -74.044502 }
+// const center = { lat: 40.689247, lng: -74.044502 }
 
 onMounted(async () => {
     await eventStore.fetchEventDetail(route.params.slug).then(() => {

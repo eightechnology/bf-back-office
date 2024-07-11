@@ -34,5 +34,10 @@ export default defineNuxtConfig({
         { src: 'https://unpkg.com/vue3-google-map', body: true },
       ]
     }
+  },
+  runtimeConfig: {
+    public: {
+      vueAppDevUrl: process.env.VUE_APP_DEV_URL
+    }
   }
 })

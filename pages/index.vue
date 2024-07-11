@@ -165,6 +165,10 @@ definePageMeta({
     middleware: ["auth"]
 });
 
+// const { data: categories } = await useFetch('http://localhost:8000/api/categories/event')
+const { data: categories } = await useFetch('/api/category')
+
+console.log(useRuntimeConfig().public.vueAppDevUrl)
 const router = useRouter();
 const changePage = () => {
     console.log("test")
