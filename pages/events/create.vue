@@ -71,11 +71,11 @@
                                 <div class="mb-3">
                                     <label for="date" class="form-label">Date début (<span
                                             class="text-danger">*</span>)</label>
-                                    <!-- <input type="date" class="form-control" v-model="eventForm.starts_at" id="date"
+                                    <input type="date" class="form-control" v-model="eventForm.starts_at" id="date"
                                         placeholder="Date début" :class="v$.starts_at.$error ? 'invalid' : ''"
-                                        @input="v$.starts_at.$touch()"> -->
-                                    <VueDatePicker v-model="eventForm.starts_at" select-text="choisir"
-                                        cancel-text="Femer" format="dd/MM/yyyy HH:mm" :format-locale="fr" />
+                                        @input="v$.starts_at.$touch()">
+                                    <!-- <VueDatePicker v-model="eventForm.starts_at" select-text="choisir"
+                                        cancel-text="Femer" format="dd/MM/yyyy HH:mm" :format-locale="fr" /> -->
                                     <div v-if="v$.starts_at.$error" class="text-danger">
                                         <p>La date début est obligatoire</p>
                                     </div>
@@ -86,11 +86,11 @@
                                 <div class="mb-3">
                                     <label for="date" class="form-label">Date fin (<span
                                             class="text-danger">*</span>)</label>
-                                    <!-- <input type="date" class="form-control" id="date" v-model="eventForm.ends_at"
+                                    <input type="date" class="form-control" id="date" v-model="eventForm.ends_at"
                                         placeholder="Date fin" :class="v$.ends_at.$error ? 'invalid' : ''"
-                                        @input="v$.ends_at.$touch()"> -->
-                                    <VueDatePicker v-model="eventForm.ends_at" select-text="choisir" cancel-text="Femer"
-                                        format="dd/MM/yyyy HH:mm" :format-locale="fr" />
+                                        @input="v$.ends_at.$touch()">
+                                    <!-- <VueDatePicker v-model="eventForm.ends_at" select-text="choisir" cancel-text="Femer"
+                                        format="dd/MM/yyyy HH:mm" :format-locale="fr" /> -->
                                     <div v-if="v$.ends_at.$error" class="text-danger">
                                         <p>La date fin est obligatoire</p>
                                     </div>
