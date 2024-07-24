@@ -44,7 +44,7 @@ export const useAuthStore = defineStore('auth', {
     actions: {
         async onLogin(formData: any) {
             try {
-                this.loading
+                this.loading = true
                 this.showError = false;
                 let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
                     let response = await axios.post('/w-login', formData);
@@ -81,7 +81,7 @@ export const useAuthStore = defineStore('auth', {
         async onRegister(formData: any) {
             
             try {
-                this.loading;
+                this.loading = true
                 this.showError = false;
                 let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
                     let response = await axios.post('/register', formData);
@@ -118,7 +118,7 @@ export const useAuthStore = defineStore('auth', {
 
         async onConfirmAuth(formData: any) {
             try {
-                this.loading;
+                this.loading = true;
                 this.showError = false;
                 let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
                     let response = await axios.post('/w-login-confirm', formData);

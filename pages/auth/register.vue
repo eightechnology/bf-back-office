@@ -182,7 +182,6 @@ definePageMeta({
 
 import useVuelidate from '@vuelidate/core'
 import { required, email, minLength, helpers, requiredIf } from '@vuelidate/validators'
-import useAuth from '~/services/auth';
 
 const authStore = useAuthStore();
 const companyStore = useCompagnyStore();

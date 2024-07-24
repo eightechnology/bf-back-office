@@ -24,7 +24,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 col-md-6 col-12" v-if="categories">
+                            <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="category" class="form-label">Catégorie (<span
                                             class="text-danger">*</span>)</label>

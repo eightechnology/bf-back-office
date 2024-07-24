@@ -92,7 +92,12 @@
 
 
             <div class="col-12 text-center mt-3" v-if="!showConfirmCode">
-                <button class="btn btn-primary w-100 mt-3" type="submit">Connexion</button>
+                <button class="btn btn-primary w-100 mt-3" type="submit" :disabled="loading">
+                    <span v-if="!loading">Connexion</span>
+                    <div class="text-center" v-else>
+                        <div class="spinner-border" role="status"></div>
+                    </div>
+                </button>
                 <p class="mb-0 mt-3"><small class="text-dark me-2">Vous n'avez pas de compte ?</small>
                     <NuxtLink to="/auth/register" class="text-dark fw-bold">S'inscrire</NuxtLink>
                 </p>
@@ -141,6 +146,8 @@ const showConfirmCode = computed(() => authStore.getShowConfirmCode);
 const showError = computed(() => authStore.getShowError);
 const errorMessage = computed(() => authStore.getErrorMessage);
 
+const { data: categories, status } = await useFetch('/api/auth');
+
 
 const loginForm = reactive({
     email: "",
@@ -153,6 +160,7 @@ const loginForm = reactive({
 });
 
 
+// const { data: categories, status } = await useFetch('/api/auth');
 
 const toLogin = async () => {
     const dataPosted = reactive({
