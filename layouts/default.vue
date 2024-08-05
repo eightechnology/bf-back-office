@@ -25,7 +25,7 @@
                                     </div>
 
                                     <ul class="sidebar-menu d-none d-lg-block d-md-block">
-                                        <li class="active">
+                                        <li class="">
                                             <NuxtLink to="/"><i class="fa-solid fa-house me-2"></i>Dashboard</NuxtLink>
                                         </li>
                                         <li class="">
@@ -328,3 +328,10 @@ const logout = async () => {
     await authStore.onLogout();
 }
 </script>
+
+<style>
+.router-link-active {
+    background-color: rgba(248, 249, 250, 0.05);
+    color: #fff !important;
+}
+</style>

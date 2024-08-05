@@ -203,7 +203,6 @@
     </div>
 </template>
 <script setup>
-import useEvents from '~/services/events';
 import useVuelidate from '@vuelidate/core'
 import { required, email, minLength, helpers, sameAs } from '@vuelidate/validators';
 import VueDatePicker from '@vuepic/vue-datepicker';

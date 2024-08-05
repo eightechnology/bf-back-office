@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-axios.defaults.baseURL = process.env.VUE_APP_DEV_URL;
+axios.defaults.baseURL = useRuntimeConfig().public.vueAppDevUrl;
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 axios.interceptors.request.use(
@@ -49,6 +49,7 @@ export const useAuthStore = defineStore('auth', {
                 let resp = await axios.get('/sanctum/csrf-cookie').then(async res => {
                     let response = await axios.post('/w-login', formData);
                     if (response.status === 200) {
+                        console.log(axios.defaults.baseURL)
                         this.loading = false;
                         this.showConfirmCode = true;
                         this.login_token = response.data.login_token;
