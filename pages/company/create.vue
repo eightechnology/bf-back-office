@@ -74,7 +74,7 @@
 </template>
 
 <script setup>
-import useCompany from '~/services/company';
+// import useCompany from '~/services/company';
 
 definePageMeta({
     layout: "auth",
@@ -90,7 +90,7 @@ const companyForm = reactive({
     country: "GN"
 });
 
-const { loading, formData, onCreateCompany } = useCompany();
+// const { loading, formData, onCreateCompany } = useCompany();
 
 const updloadLogo = (e) => {
     companyForm.logo = e.target.files[0];
@@ -106,6 +106,6 @@ const onSaveCompany = async () => {
     dataForm.append('email', companyForm.email);
     dataForm.append('country', companyForm.country);
     formData.value = dataForm;
-    await onCreateCompany();
+    // await onCreateCompany();
 }
 </script>
