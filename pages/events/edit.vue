@@ -163,12 +163,12 @@
                         </div>
                     </div>
                     <div class="mb-0 mt-4 text-end">
-                        <button class="btn btn-primary" type="submit" :disabled="loading || v$.$invalid">
+                        <!-- <button class="btn btn-primary" type="submit" :disabled="loading || v$.$invalid">
                             <span v-if="!loading">Enregistrer dans le brouillon</span>
                             <div class="text-center" v-else>
                                 <div class="spinner-border" role="status"></div>
                             </div>
-                        </button>
+                        </button> -->
                     </div>
                 </div>
             </div>
@@ -176,7 +176,7 @@
     </div>
 </template>
 <script setup>
-import useEvents from '~/services/events';
+// import useEvents from '~/services/events';
 import useVuelidate from '@vuelidate/core'
 import { required, email, minLength, helpers, sameAs } from '@vuelidate/validators'
 // import { useCategoryStore } from '~/stores/category';
@@ -219,11 +219,11 @@ const v$ = useVuelidate(rules, eventForm);
 
 const categoryStore = useCategoryStore();
 const categories = computed(() => categoryStore.getCategories);
-const { loading, formData, onCreateEvent, onGetEventsList } = useEvents();
+// const { loading, formData, onCreateEvent, onGetEventsList } = useEvents();
 
 onMounted(async () => {
     await categoryStore.fetchCategories();
-    await onGetEventsList();
+    // await onGetEventsList();
     console.log(selectedEvent.value)
 })
 
@@ -247,8 +247,8 @@ const onSaveEvent = async () => {
     dataForm.append('category', eventForm.category);
     dataForm.append('country', eventForm.country);
     dataForm.append('is_public', eventForm.is_public);
-    formData.value = dataForm;
-    await eventStore.onUpdateEvent(dataForm, selectedEvent.value.slug);
+    // formData.value = dataForm;
+    // await eventStore.onUpdateEvent(dataForm, selectedEvent.value.slug);
     //  eventStore.onCreateEvent(formData.value)
 }
 </script>
