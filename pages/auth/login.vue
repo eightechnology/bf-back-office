@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div style="margin: 30px 15px">
         <a href="index.html">
             <img src="/images/logobf.png" class="d-block mx-auto" alt="" height="70">
         </a>
-        <h5 class="mb-3 text-center">Rejoignez nous</h5>
+        <h5 class="mb-3 text-center">Inscription Organisateur</h5>
 
         <div v-if="showError">
             <ToolsError :errorMessage="errorMessage" />
