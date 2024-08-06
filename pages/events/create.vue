@@ -211,6 +211,7 @@ import { fr } from 'date-fns/locale'
 // import { useCategoryStore } from '~/stores/category';
 
 const eventStore = useEventStore();
+const loading = computed(() => eventStore.getLoading);
 
 const eventForm = reactive({
     title: "",
@@ -247,7 +248,7 @@ const v$ = useVuelidate(rules, eventForm);
 
 const categoryStore = useCategoryStore();
 const categories = computed(() => categoryStore.getCategories);
-const { loading, formData, onCreateEvent, onGetEventsList } = useEvents();
+// const { loading, formData, onCreateEvent, onGetEventsList } = useEvents();
 
 onMounted(async () => {
     await categoryStore.fetchCategories();
@@ -274,8 +275,7 @@ const onSaveEvent = async () => {
     dataForm.append('category', eventForm.category);
     dataForm.append('country', eventForm.country);
     dataForm.append('is_public', eventForm.is_public);
-    formData.value = dataForm;
-    await eventStore.onCreateEvent(formData.value);
+    await eventStore.onCreateEvent(dataForm);
     //  eventStore.onCreateEvent(formData.value)
 }
 

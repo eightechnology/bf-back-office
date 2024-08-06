@@ -29,6 +29,7 @@ export const useEventStore = defineStore('events', {
 
     getters: {
         getEventDetail(state) { return state.eventDetail; },
+        getLoading(state) { return state.loading; },
         getEventList(state) { return state.events; },
         getSelectedEvent(state) { return state.selectedEvent; }
     },
