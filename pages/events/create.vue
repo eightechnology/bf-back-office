@@ -5,6 +5,10 @@
                 class="uil uil-info-circle fs-5 align-middle me-1"></i> Les champs avec (<span
                 class="text-danger">*</span>) sont obligatoires </div> -->
 
+        <div v-if="showError">
+            <ToolsError :errorMessage="errorMessage" />
+        </div>
+
         <form @submit.prevent="onSaveEvent" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-12">
@@ -13,8 +17,7 @@
                         <div class="row mt-4">
                             <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="title" class="form-label">Titre (<span
-                                            class="text-danger">*</span>)</label>
+                                    <label for="title" class="form-label">Titre (<span class="text-danger">*</span>)</label>
                                     <input type="text" class="form-control " :class="v$.title.$error ? 'invalid' : ''"
                                         id="title" placeholder="Titre de l'événement" @input="v$.title.$touch()"
                                         v-model="eventForm.title">
@@ -71,11 +74,8 @@
                                 <div class="mb-3">
                                     <label for="date" class="form-label">Date début (<span
                                             class="text-danger">*</span>)</label>
-                                    <input type="date" class="form-control" v-model="eventForm.starts_at" id="date"
-                                        placeholder="Date début" :class="v$.starts_at.$error ? 'invalid' : ''"
-                                        @input="v$.starts_at.$touch()">
-                                    <!-- <VueDatePicker v-model="eventForm.starts_at" select-text="choisir"
-                                        cancel-text="Femer" format="dd/MM/yyyy HH:mm" :format-locale="fr" /> -->
+                                    <VueDatePicker v-model="eventForm.starts_at" select-text="choisir"
+                                        cancel-text="Femer" format="dd-MM-yyyy HH:mm" :format-locale="fr" />
                                     <div v-if="v$.starts_at.$error" class="text-danger">
                                         <p>La date début est obligatoire</p>
                                     </div>
@@ -86,11 +86,8 @@
                                 <div class="mb-3">
                                     <label for="date" class="form-label">Date fin (<span
                                             class="text-danger">*</span>)</label>
-                                    <input type="date" class="form-control" id="date" v-model="eventForm.ends_at"
-                                        placeholder="Date fin" :class="v$.ends_at.$error ? 'invalid' : ''"
-                                        @input="v$.ends_at.$touch()">
-                                    <!-- <VueDatePicker v-model="eventForm.ends_at" select-text="choisir" cancel-text="Femer"
-                                        format="dd/MM/yyyy HH:mm" :format-locale="fr" /> -->
+                                    <VueDatePicker v-model="eventForm.ends_at" select-text="choisir" cancel-text="Femer"
+                                        format="dd/MM/yyyy HH:mm" :format-locale="fr" />
                                     <div v-if="v$.ends_at.$error" class="text-danger">
                                         <p>La date fin est obligatoire</p>
                                     </div>
@@ -120,34 +117,36 @@
                             <div class="col-lg-6 col-md-6 col-12">
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <div class="form-check mb-0">
-                                        <input class="form-check-input" checked type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault1" v-model="eventForm.type">
-                                        <label class="form-check-label" for="flexRadioDefault1">Gratuit</label>
+                                        <input class="form-check-input" checked type="radio" name="flexRadioType"
+                                            id="flexRadioType" v-model="eventForm.type" value="gratuit">
+                                        <label class="form-check-label" for="flexRadioType">Gratuit</label>
                                     </div>
                                 </div>
 
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <div class="form-check mb-0">
-                                        <input class="form-check-input" checked type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault2" v-model="eventForm.type">
-                                        <label class="form-check-label" for="flexRadioDefault2">Payant</label>
+                                        <input class="form-check-input" checked type="radio" name="flexRadioType"
+                                            id="flexRadioType" v-model="eventForm.type" value="payant">
+                                        <label class="form-check-label" for="flexRadioType">Payant</label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-6 col-md-6 col-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Privé
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"
-                                        checked>
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                        public
-                                    </label>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <div class="form-check mb-0">
+                                        <input class="form-check-input" checked type="radio" name="flexRadioPublic"
+                                            id="flexRadioPublic2" v-model="eventForm.is_public" value="vrai">
+                                        <label class="form-check-label" for="flexRadioPublic2">Privé</label>
+                                    </div>
+                                </div> 
+
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <div class="form-check mb-0">
+                                        <input class="form-check-input" checked type="radio" name="flexRadioPublic"
+                                            id="flexRadioPublic2" v-model="eventForm.is_public" value="faux">
+                                        <label class="form-check-label" for="flexRadioPublic2">Public</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -208,10 +207,12 @@ import { required, email, minLength, helpers, sameAs } from '@vuelidate/validato
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { fr } from 'date-fns/locale'
-// import { useCategoryStore } from '~/stores/category';
+import moment from 'moment';
 
 const eventStore = useEventStore();
 const loading = computed(() => eventStore.getLoading);
+const showError = computed(() => eventStore.getShowError);
+const errorMessage = computed(() => eventStore.getErrorMessage);
 
 const eventForm = reactive({
     title: "",
@@ -248,15 +249,17 @@ const v$ = useVuelidate(rules, eventForm);
 
 const categoryStore = useCategoryStore();
 const categories = computed(() => categoryStore.getCategories);
-// const { loading, formData, onCreateEvent, onGetEventsList } = useEvents();
 
 onMounted(async () => {
     await categoryStore.fetchCategories();
-    await onGetEventsList();
 })
 
 const updloadImage = (e) => {
     eventForm.image = e.target.files[0];
+}
+
+const formatDate = (value) => {
+    return moment(value).format("YYYY-MM-DD HH:mm")
 }
 
 const onSaveEvent = async () => {
@@ -266,8 +269,8 @@ const onSaveEvent = async () => {
     dataForm.append('type', eventForm.type);
     dataForm.append('address', eventForm.address);
     dataForm.append('description', eventForm.description);
-    dataForm.append('starts_at', eventForm.starts_at);
-    dataForm.append('ends_at', eventForm.ends_at);
+    dataForm.append('starts_at', formatDate(eventForm.starts_at));
+    dataForm.append('ends_at', formatDate(eventForm.ends_at));
     dataForm.append('image', eventForm.image);
     // dataForm.append('plan', eventForm.plan);
     // dataForm.append('desc_video', eventForm.desc_video);
@@ -275,8 +278,8 @@ const onSaveEvent = async () => {
     dataForm.append('category', eventForm.category);
     dataForm.append('country', eventForm.country);
     dataForm.append('is_public', eventForm.is_public);
+
     await eventStore.onCreateEvent(dataForm);
-    //  eventStore.onCreateEvent(formData.value)
 }
 
 </script>

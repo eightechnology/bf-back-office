@@ -21,9 +21,12 @@ axios.interceptors.request.use(
 export const useEventStore = defineStore('events', {
     state: () => ({
         loading: false,
+        showError: false,
+        errorMessage: "",
         eventDetail: {},
-        events: [],
         selectedEvent: {},
+        events: [],
+        errors: [],
         compangySlug: sessionStorage.getItem('companySlug')
     }),
 
@@ -31,7 +34,9 @@ export const useEventStore = defineStore('events', {
         getEventDetail(state) { return state.eventDetail; },
         getLoading(state) { return state.loading; },
         getEventList(state) { return state.events; },
-        getSelectedEvent(state) { return state.selectedEvent; }
+        getSelectedEvent(state) { return state.selectedEvent; },
+        getShowError(state) { return state.showError; },
+        getErrorMessage(state) { return state.errorMessage; },
     },
 
     actions: {
@@ -75,6 +80,16 @@ export const useEventStore = defineStore('events', {
                 });
             } catch (error: any) {
                 this.loading = false;
+                this.showError = true;
+                if (error.response.status == 401 || error.response.status == 403 || error.response.status === 422) {
+                    this.errorMessage = error.response.data.message;
+                    if (error.response.data.errors) {
+                        this.errors = error.response.data.errors;
+                    }
+                }
+                else if (error.response.status == 500) {
+                    this.errorMessage = 'Erreur de traitement, vueillez réessayer plus tard.';
+                }
             }
         },
 
