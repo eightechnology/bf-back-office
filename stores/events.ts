@@ -75,8 +75,10 @@ export const useEventStore = defineStore('events', {
                     let response = await axios.post('/api/agencies/' + this.compangySlug + '/events/', formData);
                     if (response.status === 201) {
                         this.loading = false;
+                        const router = useRouter()
+                        console.log(response);
+                        router.push('/events/' + response.data.data.slug)
                     }
-                    console.log(response)
                 });
             } catch (error: any) {
                 this.loading = false;

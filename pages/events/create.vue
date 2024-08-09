@@ -17,7 +17,8 @@
                         <div class="row mt-4">
                             <div class="col-lg-6 col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="title" class="form-label">Titre (<span class="text-danger">*</span>)</label>
+                                    <label for="title" class="form-label">Titre (<span
+                                            class="text-danger">*</span>)</label>
                                     <input type="text" class="form-control " :class="v$.title.$error ? 'invalid' : ''"
                                         id="title" placeholder="Titre de l'événement" @input="v$.title.$touch()"
                                         v-model="eventForm.title">
@@ -139,7 +140,7 @@
                                             id="flexRadioPublic2" v-model="eventForm.is_public" value="vrai">
                                         <label class="form-check-label" for="flexRadioPublic2">Privé</label>
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <div class="form-check mb-0">
@@ -178,13 +179,19 @@
                         <div class="mb-3">
                             <label class="form-label">Description</label>
                             <div class="form-icon position-relative">
-                                <textarea name="comments" id="comments" rows="14" class="form-control ps-3"
+                                <!-- <textarea name="comments" id="comments" rows="14" class="form-control ps-3"
                                     placeholder="Description :" v-model="eventForm.description"
                                     :class="v$.description.$error ? 'invalid' : ''" @input="v$.description.$touch()">
-                                </textarea>
+                                </textarea> -->
+
+                                <Editor api-key="sark7keyqo3lftr9c2r3svfdho01eetdovlcbzx6e1afnkmq" :init="{
+                                    toolbar_mode: 'sliding',
+                                    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+                                    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                                }" v-model="eventForm.description" rows="22" />
                             </div>
                             <div v-if="v$.description.$error" class="text-danger">
-                                <p>La déscription est obligatoire</p>
+                                <p>Votre déscription</p>
                             </div>
                         </div>
                     </div>
@@ -208,6 +215,7 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { fr } from 'date-fns/locale'
 import moment from 'moment';
+import Editor from '@tinymce/tinymce-vue'
 
 const eventStore = useEventStore();
 const loading = computed(() => eventStore.getLoading);
@@ -240,8 +248,8 @@ const rules = computed(() => (
         description: { required },
         starts_at: { required },
         ends_at: { required },
-        image: { required },
         category: { required },
+        image: { required },
         country: { required },
     }
 ));

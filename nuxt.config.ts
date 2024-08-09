@@ -33,7 +33,6 @@ export default defineNuxtConfig({
         { src: '/libs/simplebar/simplebar.min.js', body: true },
         { src: '/js/plugins.init.js', body: true },
         { src: '/js/app.js', body: true },
-        { src: 'https://unpkg.com/vue3-google-map', body: true },
       ]
     }
   },
